@@ -15,9 +15,7 @@
 apply from: '../build.common.gradle'
 
 repositories {
-    maven {
-        url "https://dl.bintray.com/edinaftc/ftc"
-    }
+    jCenter()
 }
 dependencies {
     compile(group: 'com.edinaftc.ftc', name: 'NinevoltLib', version: '1.0.8-alpha', ext: 'aar', classifier: '')
