@@ -19,6 +19,8 @@ public class MMTeleOp extends OpMode {
     private int block;
     private double lastBlockUpdateTime;
 
+
+
     // Initialization block - run once
     @Override
     public void init() {
@@ -30,10 +32,12 @@ public class MMTeleOp extends OpMode {
             hardware = robot.getHardware();
             movement = robot.getMovement();
 
+
             movement.setDefaultRunUsingEncoders(true);
             // Alert user that initialization was successful
             telemetry.addData("Initialization", "Done!");
             telemetry.update();
+
 
         } catch (Exception e) {
             // Stops OpMode and prints exception in case of exception
@@ -41,6 +45,8 @@ public class MMTeleOp extends OpMode {
         }
     }
 
+  
+  
     // Start block - run on play press - after init, before loop
     @Override
     public void start() {
@@ -54,6 +60,7 @@ public class MMTeleOp extends OpMode {
         }
     }
 
+  
     // Loop block - run repeatedly after init
     @Override
     public void loop() {
@@ -65,6 +72,7 @@ public class MMTeleOp extends OpMode {
         }
 
     }
+
 
     public void drive(float gearRatio) {
         if (gamepad1.left_trigger != 0) {
@@ -80,6 +88,7 @@ public class MMTeleOp extends OpMode {
         }
     }
 
+
     public float softGear() {
         if (gamepad1.right_bumper) {
             return 0.5f;
@@ -87,6 +96,7 @@ public class MMTeleOp extends OpMode {
             return 1f;
         }
     }
+
 
     public void blockNotify(double rt) {
         telemetry.addData("Block", block);
