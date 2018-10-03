@@ -5,15 +5,15 @@ import com.edinaftc.ninevolt.core.hw.drivetrain.Movement;
 import com.edinaftc.ninevolt.util.ExceptionHandling;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.HSRobot;
+import org.firstinspires.ftc.teamcode.MMRobot;
 
 /**
  * Created by Nickolas Idrogo-Lam 9/27/18
  */
 @TeleOp(name = "PlaceHolder TeleOp", group = "real")
-public class HSTeleOp extends OpMode {
+public class MMTeleOp extends OpMode {
 
-    private HSRobot robot;
+    private MMRobot robot;
     private Movement movement;
     private Hardware hardware;
     private int block;
