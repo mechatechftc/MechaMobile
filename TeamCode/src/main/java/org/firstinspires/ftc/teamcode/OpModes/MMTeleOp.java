@@ -26,7 +26,7 @@ public class MMTeleOp extends OpMode {
     public void init() {
         try {
             // Actually initialize robot
-            robot = new HSRobot(this);
+            robot = new MMRobot(this);
 
             // Utility variables
             hardware = robot.getHardware();
