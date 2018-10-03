@@ -1,34 +1,52 @@
-package org.firstinspires.ftc.teamcode.OpModes;
-import org.firstinspires.ftc.teamcode.*;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+package org.firstinspires.ftc.teamcode.opmodes;
+
+import com.edinaftc.ninevolt.core.hw.Hardware;
 import com.edinaftc.ninevolt.core.hw.drivetrain.Movement;
 import com.edinaftc.ninevolt.util.ExceptionHandling;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import org.firstinspires.ftc.teamcode.MMRobot;
 
-public class MMTeleOp{
+/**
+ * Created by Nickolas Idrogo-Lam 9/27/18
+ */
+@TeleOp(name = "PlaceHolder TeleOp", group = "real")
+public class MMTeleOp extends OpMode {
+
     private MMRobot robot;
     private Movement movement;
     private Hardware hardware;
     private int block;
     private double lastBlockUpdateTime;
+
+
+
     // Initialization block - run once
     @Override
     public void init() {
         try {
             // Actually initialize robot
             robot = new HSRobot(this);
+
             // Utility variables
             hardware = robot.getHardware();
             movement = robot.getMovement();
+
+
             movement.setDefaultRunUsingEncoders(true);
             // Alert user that initialization was successful
             telemetry.addData("Initialization", "Done!");
             telemetry.update();
+
+
         } catch (Exception e) {
             // Stops OpMode and prints exception in case of exception
             ExceptionHandling.standardExceptionHandling(e, this);
         }
     }
+
+  
+  
     // Start block - run on play press - after init, before loop
     @Override
     public void start() {
@@ -41,6 +59,8 @@ public class MMTeleOp{
             ExceptionHandling.standardExceptionHandling(e, this);
         }
     }
+
+  
     // Loop block - run repeatedly after init
     @Override
     public void loop() {
@@ -50,7 +70,10 @@ public class MMTeleOp{
         } catch (Exception e) {
             ExceptionHandling.standardExceptionHandling(e, this);
         }
+
     }
+
+
     public void drive(float gearRatio) {
         if (gamepad1.left_trigger != 0) {
             movement.directDrive(-gamepad1.left_trigger * gearRatio, 0, 0);
@@ -64,6 +87,8 @@ public class MMTeleOp{
             );
         }
     }
+
+
     public float softGear() {
         if (gamepad1.right_bumper) {
             return 0.5f;
@@ -71,6 +96,8 @@ public class MMTeleOp{
             return 1f;
         }
     }
+
+
     public void blockNotify(double rt) {
         telemetry.addData("Block", block);
         if (rt - lastBlockUpdateTime > 10 && block < 12) {
