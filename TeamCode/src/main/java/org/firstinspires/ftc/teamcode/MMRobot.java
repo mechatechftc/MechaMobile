@@ -68,4 +68,13 @@ public class MMRobot {
         hardware.init();
         return hardware;
     }
+
+
+    public Movement getMovement() {
+        return movement;
+    }
+
+    public Hardware getHardware() {
+        return hardware;
+    }
 }

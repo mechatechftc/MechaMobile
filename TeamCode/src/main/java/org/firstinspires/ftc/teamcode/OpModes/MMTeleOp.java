@@ -92,7 +92,7 @@ public class MMTeleOp extends OpMode {
     public float softGear() {
         if (gamepad1.right_bumper) {
             return 0.5f;
-        } else {.
+        } else {
             return 1f;
         }
     }
