@@ -12,11 +12,4 @@
 // Custom definitions may go here
 
 // Include common definitions from above.
-apply from: '../git build.common.gradle'
-
-repositories {
-    jcenter()
-}
-dependencies {
-    compile 'com.edinaftc.ftc:NinevoltLib:1.1.0-alpha@aar'
-}
+apply from: '../build.common.gradle'

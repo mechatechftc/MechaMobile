@@ -7,14 +7,11 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.edinaftc.ninevolt.core.hw.Hardware;
 import com.edinaftc.ninevolt.core.hw.HardwareBuilder;
 import com.edinaftc.ninevolt.core.hw.drivetrain.Movement;
-import org.firstinspires.ftc.teamcode.functions.Elevator;
-import org.firstinspires.ftc.teamcode.functions.Gripper;
-import org.firstinspires.ftc.teamcode.functions.Tollbooth;
+
 
 
 public class MMRobot {
@@ -26,10 +23,7 @@ public class MMRobot {
             (WHEEL_DIAMETER_INCHES * 3.1415);
 
     private Hardware hardware;
-    private Gripper gripper;
     private Movement movement;
-    private Elevator elevator;
-    private Tollbooth tollbooth;
     private OpMode ctx;
     private LinearOpMode ctxl;
 
@@ -47,22 +41,17 @@ public class MMRobot {
 
     public MMRobot(OpMode _ctx) throws Exception {
         this.ctx = _ctx;
-        Ninevolt.setConfig(HSConfig.getInstance());
+        Ninevolt.setConfig(MMConfig.getInstance());
         hardware = initializeHardware(ctx.hardwareMap);
-        gripper = new Gripper("bigServo", "bottomServo", "topServo", ctx);
-        elevator = new Elevator(ctx.hardwareMap.dcMotor.get("elevatorMotor"), ctx);
-        tollbooth = initializeTollbooth(ctx);
         movement = new MecanumMovement(hardware, ctx);
     }
 
     public MMRobot(LinearOpMode _ctxl) throws Exception {
         this.ctxl = _ctxl;
-        Ninevolt.setConfig(HSConfig.getInstance());
+        Ninevolt.setConfig(MMConfig.getInstance());
         hardware = initializeHardware(ctxl.hardwareMap);
         movement = new MecanumMovement(hardware, ctxl, PULSES_PER_INCH);
-        elevator = new Elevator(ctx.hardwareMap.dcMotor.get("elevatorMotor"), 8.5, ctxl);
-        tollbooth = initializeTollbooth(ctx);
-        gripper = new Gripper("bigServo", "bottomServo", "topServo", ctxl);
+
     }
 
     private Hardware initializeHardware(HardwareMap hardwareMap) throws Exception {
@@ -73,7 +62,7 @@ public class MMRobot {
                 .addMotorFR("motorFR")
                 .addMotorBL("motorBL")
                 .addMotorBR("motorBR")
-                .addBoschIMU("imu", HSRobot.getIMUParameters());
+                .addBoschIMU("imu", MMRobot.getIMUParameters());
         hardware = hb.build();
         hb = null;
         hardware.init();
