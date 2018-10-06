@@ -97,7 +97,7 @@ public class MMTeleOp extends OpMode {
         }
     }
 
-
+    //Let the user know when TeleOp has ended
     public void blockNotify(double rt) {
         telemetry.addData("Block", block);
         if (rt - lastBlockUpdateTime > 10 && block < 12) {
