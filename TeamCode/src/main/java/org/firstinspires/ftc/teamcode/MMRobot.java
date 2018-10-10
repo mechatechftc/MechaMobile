@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.edinaftc.ninevolt.Ninevolt;
-import com.edinaftc.ninevolt.core.hw.drivetrain.MecanumMovement;
+import com.edinaftc.ninevolt.core.hw.drivetrain.StandardMovement;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.edinaftc.ninevolt.core.hw.Hardware;
+import com.edinaftc.ninevolt.core.hw.Hardware.MotorMode;
 import com.edinaftc.ninevolt.core.hw.HardwareBuilder;
 import com.edinaftc.ninevolt.core.hw.drivetrain.Movement;
 
@@ -26,6 +27,7 @@ public class MMRobot {
     private Movement movement;
     private OpMode ctx;
     private LinearOpMode ctxl;
+    private MotorMode motorMode;
 
     public static BNO055IMU.Parameters getIMUParameters() {
         // Create Bosch IMU parameters
@@ -40,17 +42,18 @@ public class MMRobot {
     }
 
     public MMRobot(OpMode _ctx) throws Exception {
+        motorMode = MotorMode.FOUR_MOTORS;
         this.ctx = _ctx;
         Ninevolt.setConfig(MMConfig.getInstance());
         hardware = initializeHardware(ctx.hardwareMap);
-        movement = new MecanumMovement(hardware, ctx);
+        movement = new StandardMovement(hardware, ctx, motorMode);
     }
 
     public MMRobot(LinearOpMode _ctxl) throws Exception {
         this.ctxl = _ctxl;
         Ninevolt.setConfig(MMConfig.getInstance());
         hardware = initializeHardware(ctxl.hardwareMap);
-        movement = new MecanumMovement(hardware, ctxl, PULSES_PER_INCH);
+        movement = new StandardMovement(hardware, ctxl, motorMode);
 
     }
 
