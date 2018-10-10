@@ -7,6 +7,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.edinaftc.ninevolt.core.hw.Hardware;
 import com.edinaftc.ninevolt.core.hw.Hardware.MotorMode;
@@ -29,7 +30,7 @@ public class MMRobot {
     private LinearOpMode ctxl;
     private MotorMode motorMode;
     private DcMotor armRaiseMotor;
-    private DcMotor armExendMotor;
+    private DcMotor armExtendMotor;
 
     public static BNO055IMU.Parameters getIMUParameters() {
         // Create Bosch IMU parameters
@@ -77,12 +78,21 @@ public class MMRobot {
         armRaiseMotor = hardwareMap.get(DcMotor.class, "armRaise");
         armExtendMotor = hardwareMap.get(DcMotor.class, "armExtend");
 
+        armRaiseMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        armExtendMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
         return hardware;
     }
 
-    public void armRaise() {
-        armRaiseMotor.
+    public void armRaise(float powerLevel) {
+        armRaiseMotor.setPower(powerLevel);
     }
+
+
+    public void armExtend(float powerLevel) {
+        armExtendMotor.setPower(powerLevel);
+    }
+
 
     public Movement getMovement() {
         return movement;

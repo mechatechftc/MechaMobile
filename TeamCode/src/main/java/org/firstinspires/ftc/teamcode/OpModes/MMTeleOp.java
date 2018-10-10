@@ -88,6 +88,10 @@ public class MMTeleOp extends OpMode {
         }
     }
 
+    public void armControl() {
+        robot.armRaise(gamepad2.left_stick_y);
+        robot.armExtend(gamepad2.right_stick_y);
+    }
 
     public float softGear() {
         if (gamepad1.right_bumper) {
