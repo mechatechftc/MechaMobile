@@ -28,8 +28,8 @@ public class MMRobot {
     private OpMode ctx;
     private LinearOpMode ctxl;
     private MotorMode motorMode;
-    private DcMotor armRaise;
-    private DcMotor armExtend;
+    private DcMotor armRaiseMotor;
+    private DcMotor armExendMotor;
 
     public static BNO055IMU.Parameters getIMUParameters() {
         // Create Bosch IMU parameters
@@ -74,12 +74,15 @@ public class MMRobot {
         hb = null;
         hardware.init();
 
-        armRaise = hardwareMap.get(DcMotor.class, "armRaise");
-        armExtend = hardwareMap.get(DcMotor.class, "armExtend");
+        armRaiseMotor = hardwareMap.get(DcMotor.class, "armRaise");
+        armExtendMotor = hardwareMap.get(DcMotor.class, "armExtend");
 
         return hardware;
     }
 
+    public void armRaise() {
+        armRaiseMotor.
+    }
 
     public Movement getMovement() {
         return movement;
