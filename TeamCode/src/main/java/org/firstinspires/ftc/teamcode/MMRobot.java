@@ -26,6 +26,8 @@ public class MMRobot {
     private Movement movement;
     private OpMode ctx;
     private LinearOpMode ctxl;
+    private DcMotor armRaise;
+    private DcMotor armLower;
 
     public static BNO055IMU.Parameters getIMUParameters() {
         // Create Bosch IMU parameters
@@ -43,14 +45,14 @@ public class MMRobot {
         this.ctx = _ctx;
         Ninevolt.setConfig(MMConfig.getInstance());
         hardware = initializeHardware(ctx.hardwareMap);
-        movement = new MecanumMovement(hardware, ctx);
+        movement = new StandardMovement(hardware, ctx);
     }
 
     public MMRobot(LinearOpMode _ctxl) throws Exception {
         this.ctxl = _ctxl;
         Ninevolt.setConfig(MMConfig.getInstance());
         hardware = initializeHardware(ctxl.hardwareMap);
-        movement = new MecanumMovement(hardware, ctxl, PULSES_PER_INCH);
+        movement = new StandardMovement(hardware, ctxl, PULSES_PER_INCH);
 
     }
 
@@ -66,6 +68,10 @@ public class MMRobot {
         hardware = hb.build();
         hb = null;
         hardware.init();
+
+        armRaise = hardwareMap.get(DcMotor.class, "armRaise");
+        armLower = hardwareMap.get(DcMotor.class, "armLower");
+
         return hardware;
     }
 
