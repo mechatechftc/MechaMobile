@@ -73,7 +73,7 @@ public class MMRobot {
         hb = null;
         hardware.init();
 
-        armRaiseMotor = hardwareMap.get(DcMotor.class, "armRaise");
+         = hardwareMap.get(DcMotor.class, "armRaise");
         armExtendMotor = hardwareMap.get(DcMotor.class, "armExtend");
 
         armRaiseMotor.setDirection(DcMotorSimple.Direction.FORWARD);
