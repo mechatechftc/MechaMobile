@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.MMRobot;
 
 /**
- * Created by Nickolas Idrogo-Lam 9/27/18
+ * Created by Nickolas Idrogo-Lam and Eric Seng 9/27/18
  */
 @TeleOp(name = "PlaceHolder TeleOp", group = "real")
 public class MMTeleOp extends OpMode {
