@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.Functions;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Eric S on 10/13/2018.

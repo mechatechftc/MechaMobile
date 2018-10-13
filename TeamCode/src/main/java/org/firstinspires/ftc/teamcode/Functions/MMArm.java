@@ -46,4 +46,28 @@ public class MMArm {
         armLiftMotor.setPower(powerLevel);
         armLiftMotor.setDirection(DcMotor.Direction.REVERSE);
     }
+
+    public DcMotor getArmExtendMotor() {
+        return armExtendMotor;
+    }
+
+    public void setArmExtendMotor(DcMotor armExtendMotor) {
+        this.armExtendMotor = armExtendMotor;
+    }
+
+    public DcMotor getArmLiftMotor() {
+        return armLiftMotor;
+    }
+
+    public void setArmLiftMotor(DcMotor armLiftMotor) {
+        this.armLiftMotor = armLiftMotor;
+    }
+
+    public Servo getRotationServo() {
+        return rotationServo;
+    }
+
+    public void setRotationServo(Servo rotationServo) {
+        this.rotationServo = rotationServo;
+    }
 }
