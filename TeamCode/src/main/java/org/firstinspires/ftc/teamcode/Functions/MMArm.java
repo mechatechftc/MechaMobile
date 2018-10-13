@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class MMArm {
 
     private OpMode ctx;
-    private LinearOpMode ctxl;
     private DcMotor armExtendMotor;
     private DcMotor armLiftMotor;
     private Servo rotationServo;
