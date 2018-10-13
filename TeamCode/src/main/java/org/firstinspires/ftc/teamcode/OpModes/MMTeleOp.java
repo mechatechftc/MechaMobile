@@ -5,15 +5,20 @@ import com.edinaftc.ninevolt.core.hw.drivetrain.Movement;
 import com.edinaftc.ninevolt.util.ExceptionHandling;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import org.firstinspires.ftc.teamcode.Functions.MMArm;
+import org.firstinspires.ftc.teamcode.Functions.MMHook;
 import org.firstinspires.ftc.teamcode.MMRobot;
+import org.firstinspires.ftc.teamcode.Functions.MMArm;
 
 /**
- * Created by Nickolas Idrogo-Lam 9/27/18
+ * Created by Nickolas Idrogo-Lam and Eric Seng 9/27/18
  */
 @TeleOp(name = "PlaceHolder TeleOp", group = "real")
 public class MMTeleOp extends OpMode {
 
     private MMRobot robot;
+    private MMArm arm;
+    private MMHook hook;
     private Movement movement;
     private Hardware hardware;
     private int block;
@@ -88,9 +93,23 @@ public class MMTeleOp extends OpMode {
         }
     }
 
-    public void armControl() {
-        robot.armRaise(gamepad2.left_stick_y);
-        robot.armExtend(gamepad2.right_stick_y);
+    public void armControlRaising() {
+        if (gamepad2.right_bumper) arm.raiseArm(1);
+        else if (gamepad2.left_bumper) arm.lowerArm(-1);
+    }
+
+    public void armControlExtending() {
+        if (gamepad2.dpad_up) arm.extendArm(1);
+        if (gamepad2.dpad_down) arm.retractArm(-1);
+    }
+
+    public void servoController(){
+        if (gamepad2.right_trigger > 0) arm.intake();
+    }
+
+    public void hook(){
+        if (gamepad2.left_trigger > 0) hook.hookRaise(1);
+        if (gamepad2.b) hook.hookLower(-1);
     }
 
     public float softGear() {
