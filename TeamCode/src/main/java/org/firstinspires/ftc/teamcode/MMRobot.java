@@ -29,8 +29,6 @@ public class MMRobot {
     private OpMode ctx;
     private LinearOpMode ctxl;
     private MotorMode motorMode;
-    private DcMotor armRaiseMotor;
-    private DcMotor armExtendMotor;
 
     public static BNO055IMU.Parameters getIMUParameters() {
         // Create Bosch IMU parameters

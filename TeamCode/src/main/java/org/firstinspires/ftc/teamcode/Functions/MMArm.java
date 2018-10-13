@@ -28,19 +28,23 @@ public class MMArm {
         rotationServo.setDirection(Servo.Direction.FORWARD);
     }
 
-    public void extendArm() {
+    public void extendArm(float powerLevel) {
+        armExtendMotor.setPower(powerLevel);
         armExtendMotor.setDirection(DcMotor.Direction.FORWARD);
     }
 
-    public void retractArm() {
+    public void retractArm(float powerLevel) {
+        armExtendMotor.setPower(powerLevel);
         armExtendMotor.setDirection(DcMotor.Direction.REVERSE);
     }
 
-    public void raiseArm() {
+    public void raiseArm(float powerLevel) {
+        armLiftMotor.setPower(powerLevel);
         armLiftMotor.setDirection(DcMotor.Direction.FORWARD);
     }
 
-    public void lowerArm() {
+    public void lowerArm(float powerLevel) {
+        armLiftMotor.setPower(powerLevel);
         armLiftMotor.setDirection(DcMotor.Direction.REVERSE);
     }
 }
