@@ -1,0 +1,70 @@
+package org.firstinspires.ftc.teamcode.OpModes;
+
+import com.edinaftc.ninevolt.core.hw.Hardware;
+import com.edinaftc.ninevolt.core.hw.drivetrain.Movement;
+import com.edinaftc.ninevolt.util.ExceptionHandling;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import org.firstinspires.ftc.teamcode.MMRobot;
+
+/*
+ * Created by, ya boi, ant on the 11th of spooktober
+ */
+// Initialization block - run once
+@Override
+public void init() {
+        try {
+            // Actually initialize robot
+            robot = new MMRobot(this);
+
+            // Utility variables
+            hardware = robot.getHardware();
+            movement = robot.getMovement();
+
+
+            movement.setDefaultRunUsingEncoders(true);
+            // Alert user that initialization was successful
+            telemetry.addData("Initialization", "Done!");
+            telemetry.update();
+
+
+        } catch (Exception e) {
+            // Stops OpMode and prints exception in case of exception
+            ExceptionHandling.standardExceptionHandling(e, this);
+            }
+}
+
+// Start block - run on play press - after init, before loop
+@Override
+public void start() {
+            // Initalize block timer
+                try {
+                resetStartTime();
+                block = 1;
+                lastBlockUpdateTime = 0;
+            } catch (Exception e) {
+                ExceptionHandling.standardExceptionHandling(e, this);
+            }
+        }
+
+        double tgtPower = 0;
+        while (opModeIsActive()) {
+        tgtPower = -this.gamepad1.left_stick_y;
+        motorTest.setPower(tgtPower);
+        // check to see if we need to move the servo.
+        if(gamepad1.a) {
+        // move to 0 degrees.
+        for (int pos = 0; pos < 180; pos = pos + 5)
+        servoTest.setPosition(pos);
+        } else if (gamepad1.b) {
+        // move backwards
+        for (int pos = 0; pos < 180; pos = pos + 5)
+        servoTest.setPosition(pos);
+        }
+        telemetry.addData("Servo Position", servoTest.getPosition());
+        telemetry.addData("Target Power", tgtPower);
+        telemetry.addData("Motor Power", motorTest.getPower());
+        telemetry.addData("Status", "Running");
+        telemetry.update();
+
+        }
