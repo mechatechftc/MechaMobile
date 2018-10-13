@@ -94,6 +94,11 @@ public class MMTeleOp extends OpMode {
         robot.armExtend(gamepad2.right_stick_y);
     }
 
+    public void Servo rotationServo(){
+        MMArm.servo (gamepad2.right_trigger);
+
+    }
+
     public float softGear() {
         if (gamepad1.right_bumper) {
             return 0.5f;
