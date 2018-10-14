@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.OpModes;
 import com.edinaftc.ninevolt.core.hw.Hardware;
 import com.edinaftc.ninevolt.core.hw.drivetrain.Movement;
 import com.edinaftc.ninevolt.util.ExceptionHandling;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Functions.MMArm;
@@ -13,7 +14,8 @@ import org.firstinspires.ftc.teamcode.Functions.MMArm;
 /**
  * Created by Nickolas Idrogo-Lam and Eric Seng 9/27/18
  */
-@TeleOp(name = "PlaceHolder TeleOp", group = "real")
+@TeleOp(name = "TeleOp Drive 1", group = "real")
+@Disabled
 public class MMTeleOp extends OpMode {
 
     private MMRobot robot;
@@ -23,7 +25,6 @@ public class MMTeleOp extends OpMode {
     private Hardware hardware;
     private int block;
     private double lastBlockUpdateTime;
-
 
 
     // Initialization block - run once
@@ -42,7 +43,6 @@ public class MMTeleOp extends OpMode {
             // Alert user that initialization was successful
             telemetry.addData("Initialization", "Done!");
             telemetry.update();
-
 
         } catch (Exception e) {
             // Stops OpMode and prints exception in case of exception

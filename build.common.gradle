@@ -105,6 +105,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.edinaftc.ftc:NinevoltLib:1.1.0-alpha@aar'
+    implementation 'com.edinaftc.ftc:NinevoltLib:1.1.0-alpha@aar'
 }
 apply from: 'build.release.gradle'
