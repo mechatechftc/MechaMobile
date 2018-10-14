@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class MMRobot2
 {
-    private static final double ArmPower  = .5;
-    private static final double ExtendPower  = .5;
-    private static final double HookPower  = .5;
+    private static final double ArmPower  = 1.0;
+    private static final double ExtendPower  = 1.0;
+    private static final double HookPower  = 1.0;
 
     private OpMode _ctx;
     private DcMotor leftDriveFront = null;
@@ -30,9 +30,9 @@ public class MMRobot2
 
         leftDriveFront  = hardwareMap.get(DcMotor.class, "motorFL");
         rightDriveFront = hardwareMap.get(DcMotor.class, "motorFR");
-        leftDriveRear  = hardwareMap.get(DcMotor.class, "motorRL");
-        rightDriveRear = hardwareMap.get(DcMotor.class,"motorRR");
-        armRaise = hardwareMap.get(DcMotor.class, "armExtend");
+        leftDriveRear  = hardwareMap.get(DcMotor.class, "motorBL");
+        rightDriveRear = hardwareMap.get(DcMotor.class,"motorBR");
+        armRaise = hardwareMap.get(DcMotor.class, "armRaise");
         armExtend = hardwareMap.get(DcMotor.class, "armExtend");
         hookMotor = hardwareMap.get(DcMotor.class, "hookMotor");
         lockServo = hardwareMap.get(Servo.class, "lockServo");
@@ -49,22 +49,9 @@ public class MMRobot2
         hookMotor.setDirection(DcMotor.Direction.FORWARD);
     }
 
-    public void RotateArm(MotorDirection direction)
+    public void RotateArm(double power)
     {
-        switch (direction)
-        {
-            case Forward:
-                armRaise.setPower(ArmPower);
-                break;
-
-            case Backward:
-                armRaise.setPower(-ArmPower);
-                break;
-
-            case Off:
-                armRaise.setPower(0);
-                break;
-        }
+        armRaise.setPower(power);
     }
 
     public void ExtendArm(MotorDirection direction, double power)

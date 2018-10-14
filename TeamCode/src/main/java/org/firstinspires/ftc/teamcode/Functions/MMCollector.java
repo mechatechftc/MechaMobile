@@ -14,8 +14,7 @@ public class MMCollector {
 
     public MMCollector(CRServo rotationServo, OpMode ctx) {
         this.rotationServo = rotationServo;
-        armExtendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        armLiftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       
         this.ctx = ctx;
     }
 

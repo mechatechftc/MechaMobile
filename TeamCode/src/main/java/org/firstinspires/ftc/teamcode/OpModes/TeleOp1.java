@@ -72,21 +72,9 @@ public class TeleOp1 extends OpMode
 
     void RotateArm()
     {
-        if(gamepad2.dpad_up)
-        {
-            _robot.RotateArm(MotorDirection.Forward);
-            telemetry.addData("Arm Rotate", "Up");
-        }
-        else if(gamepad2.dpad_down)
-        {
-            _robot.RotateArm(MotorDirection.Backward);
-            telemetry.addData("Arm Rotate", "Down");
-        }
-        else
-        {
-            _robot.RotateArm(MotorDirection.Off);
-            telemetry.addData("Arm Rotate", "Off");
-        }
+        double power = Range.clip(gamepad2.left_stick_y, -1.0, 1.0) ;
+        _robot.RotateArm(power);
+        telemetry.addData("Arm Rotate", "Up");
     }
 
     void RetractArm()
@@ -105,7 +93,7 @@ public class TeleOp1 extends OpMode
         else if(gamepad2.left_trigger >= 0)
         {
             double power = Range.clip(gamepad2.left_trigger, 0.0, 1.0) ;
-            _robot.ExtendArm(MotorDirection.Forward, power);
+            _robot.ExtendArm(MotorDirection.Backward, power);
             telemetry.addData("Arm Extend", "Power (%.2f)", power);
         }
         else
