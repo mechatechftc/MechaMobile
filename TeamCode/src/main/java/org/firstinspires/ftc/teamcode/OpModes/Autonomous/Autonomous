@@ -1,0 +1,33 @@
+package org.firstinpires.ftc.robotcontroller.external.samples;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+@TeleOp(name = "Autonomous Drop", group = "Autonomous")
+
+public class drop extends LinearOpMode {
+
+    DcMotor motor;
+    int power = 1;
+
+    @override
+    public void runOpMode() {
+        motor = hardwareMap.get(DcMotor.class, "hookMotor");
+
+        telemetry.addData(">", "Press Start to run Motors." );
+        telemetry.update();
+        waitForStart();
+
+        while(opModeIsActive()) {
+            sleep(500);
+            motor.setPower(power);
+            idle();
+        }
+
+        motor.setPower(0);
+        telemetry.addData(">", "Done");
+        telemetry.update();
+    }
+}
