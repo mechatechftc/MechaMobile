@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.content.ComponentCallbacks;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.*;
 
 public class MMRobot2
 {
@@ -20,7 +19,7 @@ public class MMRobot2
     private DcMotor armExtend = null;
     private DcMotor hookMotor = null;
     private Servo lockServo = null;
-    private Servo collectServo = null;
+    private CRServo collectServo = null;
 
     public MMRobot2(OpMode ctx)
     {
@@ -36,8 +35,7 @@ public class MMRobot2
         armExtend = hardwareMap.get(DcMotor.class, "armExtend");
         hookMotor = hardwareMap.get(DcMotor.class, "hookMotor");
         lockServo = hardwareMap.get(Servo.class, "lockServo");
-        collectServo = hardwareMap.get(Servo.class, "rotationServo");
-
+        collectServo = hardwareMap.get(CRServo.class, "rotationServo");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftDriveFront.setDirection(DcMotor.Direction.REVERSE);
@@ -85,15 +83,15 @@ public class MMRobot2
         switch (direction)
         {
             case Forward:
-                collectServo.setPosition(1);
+                collectServo.setDirection(CRServo.Direction.FORWARD);
+                collectServo.setPower(1);
                 break;
-
             case Backward:
-             //   hookMotor.setPower(-HookPower);
+                collectServo.setDirection(CRServo.Direction.REVERSE);
+                collectServo.setPower(1);
                 break;
-
             case Off:
-                collectServo.setPosition(.5);
+                collectServo.setPower(0);
                 break;
         }
     }
