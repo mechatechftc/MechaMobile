@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.MMRobot2;
 @Autonomous(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
 @Disabled
 /*
- * Created by Nickolas Idrogo-Lam (Add your name, I forgot who else worked on this hahaha) on 10/16/18
+ * Created by Nickolas Idrogo-Lam and Eric Seng on 10/16/18
  */
 public class Auto1 extends LinearOpMode {
 

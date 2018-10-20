@@ -1,14 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.Gyroscope;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -30,10 +23,8 @@ public class TeleOp1 extends OpMode
     public void init() {
         _robot = new MMRobot2(this);
 
-      //  UnLock();
-        //Collect();
-
-        telemetry.addData("Status", "Initialized");
+        UnLock();
+        telemetry.addData("Collector", "Initialized");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -63,43 +54,55 @@ public class TeleOp1 extends OpMode
         Drive();
         HangRobot();
         RetractArm();
-        RotateArm();
+        RaiseArm();
+        Collect();
+
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();
     }
 
-    void RotateArm()
+    void RaiseArm()
     {
-        double power = Range.clip(gamepad2.left_stick_y, -1.0, 1.0) ;
-        _robot.RotateArm(power);
-        telemetry.addData("Arm Rotate", "Up");
+        if (gamepad2.dpad_up){
+            _robot.RaiseArm(1);
+            telemetry.addData("Arm Rotate", "Up");
+        }
+        if (gamepad2.dpad_down){
+            _robot.RaiseArm(-1);
+            telemetry.addData("Arm Rotate", "Down");
+
+        }
+        else{
+            _robot.RaiseArm(0);
+            telemetry.addData("Arm Rotate", "Stationary");
+        }
     }
 
     void RetractArm()
     {
-        if(gamepad2.right_trigger > 0 && gamepad2.left_trigger > 0)
+        if(gamepad2.right_trigger > 0.0 && gamepad2.left_trigger > 0.0)
         {
             _robot.ExtendArm(MotorDirection.Off, 0);
-            telemetry.addData("Arm Extend", "Off");
+            //telemetry.addData("Arm Extend", "Off");
         }
-        else if(gamepad2.right_trigger >= 0)
+        else if(gamepad2.right_trigger > 0.0)
         {
             double power = Range.clip(gamepad2.right_trigger, 0.0, 1.0) ;
             _robot.ExtendArm(MotorDirection.Forward, power);
-            telemetry.addData("Arm Extend", "Power (%.2f)", power);
+            //telemetry.addData("Arm Extend", "Power (%.2f)", power);
         }
-        else if(gamepad2.left_trigger >= 0)
+        else if(gamepad2.left_trigger > 0.0)
         {
             double power = Range.clip(gamepad2.left_trigger, 0.0, 1.0) ;
             _robot.ExtendArm(MotorDirection.Backward, power);
-            telemetry.addData("Arm Extend", "Power (%.2f)", power);
+            //telemetry.addData("Arm Extend", "Power (%.2f)", power);
         }
         else
         {
-            _robot.ExtendArm(MotorDirection.Off, 0);
-            telemetry.addData("Arm Extend", "Power (%.2f)", 0);
+            _robot.ExtendArm(MotorDirection.Off, 0.0);
+            //telemetry.addData("Arm Extend", "Power (%.2f)", 0);
         }
     }
 
@@ -151,19 +154,22 @@ public class TeleOp1 extends OpMode
     {
         if(gamepad2.a)
         {
-            _robot.Collect(MotorDirection.Forward);
-            telemetry.addData("Collect", "In");
+            _robot.useCollector(MotorDirection.Forward);
+            telemetry.addData("Collect", "On");
         }
-        else if(gamepad2.x)
+        if(gamepad2.x)
         {
-            _robot.Collect(MotorDirection.Off);
+            _robot.useCollector(MotorDirection.Off);
             telemetry.addData("Collect", "Off");
         }
     }
 
     public void UnLock()
     {
-        _robot.UnlockServo();
+        if(gamepad2.y) {
+            _robot.markerDrop();
+            telemetry.addData("MarkerDrop", "Dropping");
+        }
     }
 
     /*

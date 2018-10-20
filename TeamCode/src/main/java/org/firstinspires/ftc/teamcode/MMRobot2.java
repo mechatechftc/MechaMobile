@@ -18,7 +18,7 @@ public class MMRobot2
     private DcMotor armRaise = null;
     private DcMotor armExtend = null;
     private DcMotor hookMotor = null;
-    private Servo lockServo = null;
+    private Servo markerDrop = null;
     private CRServo collectServo = null;
 
     public MMRobot2(OpMode ctx)
@@ -34,7 +34,7 @@ public class MMRobot2
         armRaise = hardwareMap.get(DcMotor.class, "armRaise");
         armExtend = hardwareMap.get(DcMotor.class, "armExtend");
         hookMotor = hardwareMap.get(DcMotor.class, "hookMotor");
-        lockServo = hardwareMap.get(Servo.class, "lockServo");
+        markerDrop = hardwareMap.get(Servo.class, "markerDrop");
         collectServo = hardwareMap.get(CRServo.class, "rotationServo");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -42,22 +42,36 @@ public class MMRobot2
         rightDriveFront.setDirection(DcMotor.Direction.FORWARD);
         leftDriveRear.setDirection(DcMotor.Direction.REVERSE);
         rightDriveRear.setDirection(DcMotor.Direction.FORWARD);
-        armRaise.setDirection(DcMotor.Direction.FORWARD);
         armExtend.setDirection(DcMotor.Direction.FORWARD);
         hookMotor.setDirection(DcMotor.Direction.FORWARD);
+        collectServo.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
-    public void RotateArm(double power)
+    public void RaiseArm(double power)
     {
-        armRaise.setPower(power);
+        if (power > 0){
+            armRaise.setDirection(DcMotor.Direction.FORWARD);
+            armRaise.setPower(power);
+        }
+        if (power < 0){
+            double newPower = -power;
+            armRaise.setDirection(DcMotor.Direction.REVERSE);
+            armRaise.setPower(newPower);
+        }
+        if (power == 0){
+            armRaise.setPower(power);
+        }
     }
 
     public void ExtendArm(MotorDirection direction, double power)
     {
-        if(direction == MotorDirection.Backward)
-            power = -power;
-
-        armExtend.setPower(power);
+        if(direction == MotorDirection.Backward) {
+            double newPower = -power;
+            armExtend.setPower(newPower);
+        }
+        else {
+            armExtend.setPower(power);
+        }
     }
 
     public void Hang(MotorDirection direction)
@@ -78,17 +92,12 @@ public class MMRobot2
         }
     }
 
-    public void Collect(MotorDirection direction)
+    public void useCollector(MotorDirection direction)
     {
         switch (direction)
         {
             case Forward:
-                collectServo.setDirection(CRServo.Direction.FORWARD);
-                collectServo.setPower(1);
-                break;
-            case Backward:
-                collectServo.setDirection(CRServo.Direction.REVERSE);
-                collectServo.setPower(1);
+                collectServo.setPower(0.55);
                 break;
             case Off:
                 collectServo.setPower(0);
@@ -104,8 +113,8 @@ public class MMRobot2
         rightDriveRear.setPower(rightPower);
     }
 
-    public void UnlockServo()
+    public void markerDrop()
     {
-        lockServo.setPosition(1);
+        markerDrop.setPosition(1);
     }
 }
