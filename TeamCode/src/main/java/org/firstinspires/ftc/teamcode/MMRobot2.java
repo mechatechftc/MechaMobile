@@ -49,18 +49,7 @@ public class MMRobot2
 
     public void RaiseArm(double power)
     {
-        if (power > 0){
-            armRaise.setDirection(DcMotor.Direction.FORWARD);
             armRaise.setPower(power);
-        }
-        if (power < 0){
-            double newPower = -power;
-            armRaise.setDirection(DcMotor.Direction.REVERSE);
-            armRaise.setPower(newPower);
-        }
-        if (power == 0){
-            armRaise.setPower(power);
-        }
     }
 
     public void ExtendArm(MotorDirection direction, double power)
@@ -116,5 +105,39 @@ public class MMRobot2
     public void markerDrop()
     {
         markerDrop.setPosition(1);
+    }
+
+    //GETTERS AND SETTERS
+
+    public DcMotor getLeftDriveFront() {
+        return leftDriveFront;
+    }
+
+    public void setLeftDriveFront(DcMotor leftDriveFront) {
+        this.leftDriveFront = leftDriveFront;
+    }
+
+    public DcMotor getRightDriveFront() {
+        return rightDriveFront;
+    }
+
+    public void setRightDriveFront(DcMotor rightDriveFront) {
+        this.rightDriveFront = rightDriveFront;
+    }
+
+    public DcMotor getLeftDriveRear() {
+        return leftDriveRear;
+    }
+
+    public void setLeftDriveRear(DcMotor leftDriveRear) {
+        this.leftDriveRear = leftDriveRear;
+    }
+
+    public DcMotor getRightDriveRear() {
+        return rightDriveRear;
+    }
+
+    public void setRightDriveRear(DcMotor rightDriveRear) {
+        this.rightDriveRear = rightDriveRear;
     }
 }

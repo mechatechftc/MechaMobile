@@ -23,7 +23,6 @@ public class TeleOp1 extends OpMode
     public void init() {
         _robot = new MMRobot2(this);
 
-        UnLock();
         telemetry.addData("Collector", "Initialized");
 
         // Tell the driver that initialization is complete.
@@ -56,6 +55,8 @@ public class TeleOp1 extends OpMode
         RetractArm();
         RaiseArm();
         Collect();
+        UnLock();
+
 
 
         // Show the elapsed game time and wheel power.
@@ -65,20 +66,11 @@ public class TeleOp1 extends OpMode
 
     void RaiseArm()
     {
-        if (gamepad2.dpad_up){
-            _robot.RaiseArm(1);
-            telemetry.addData("Arm Rotate", "Up");
-        }
-        if (gamepad2.dpad_down){
-            _robot.RaiseArm(-1);
-            telemetry.addData("Arm Rotate", "Down");
-
-        }
-        else{
-            _robot.RaiseArm(0);
-            telemetry.addData("Arm Rotate", "Stationary");
-        }
+        double power = Range.clip(gamepad2.left_stick_y, -1.0, 1.0) ;
+        _robot.RaiseArm(power);
+        telemetry.addData("Arm Rotate", "Up");
     }
+
 
     void RetractArm()
     {
@@ -136,13 +128,17 @@ public class TeleOp1 extends OpMode
 
         // POV Mode uses left stick to go forward, and right stick to turn.
         // - This uses basic math to combine motions and is easier to drive straight.
-        double drive = -gamepad1.left_stick_y;
-        double turn  =  gamepad1.right_stick_x;
-        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+
+        //double drive = -gamepad1.left_stick_y;
+        //double turn  =  gamepad1.right_stick_x;
+        //leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
+        //rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
+
+        //TODO Add autobraking
+
         leftPower  = -gamepad1.left_stick_y ;
         rightPower = -gamepad1.right_stick_y ;
 
