@@ -45,6 +45,15 @@ public class MMRobot2
         armExtend.setDirection(DcMotor.Direction.FORWARD);
         hookMotor.setDirection(DcMotor.Direction.FORWARD);
         collectServo.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+        leftDriveFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightDriveFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftDriveRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightDriveRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armRaise.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hookMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void RaiseArm(double power)

@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Functions.MMArm;
 import org.firstinspires.ftc.teamcode.Functions.MMHook;
 import org.firstinspires.ftc.teamcode.MMRobot2;
 
-@Autonomous(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
+@Autonomous(name="Auto Drive By Encoder", group="Autonomus")
 @Disabled
 /*
  * Created by Nickolas Idrogo-Lam and Eric Seng on 10/16/18
