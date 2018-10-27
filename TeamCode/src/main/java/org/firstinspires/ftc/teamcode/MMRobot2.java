@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.content.ComponentCallbacks;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.*;
 
 public class MMRobot2
 {
@@ -19,9 +18,9 @@ public class MMRobot2
     private DcMotor armRaise = null;
     private DcMotor armExtend = null;
     private DcMotor hookMotor = null;
-    private Servo lockServo = null;
-    private Servo collectServo = null;
-git
+    private Servo markerDrop = null;
+    private CRServo collectServo = null;
+
     public MMRobot2(OpMode ctx)
     {
         _ctx = ctx;
@@ -35,31 +34,42 @@ git
         armRaise = hardwareMap.get(DcMotor.class, "armRaise");
         armExtend = hardwareMap.get(DcMotor.class, "armExtend");
         hookMotor = hardwareMap.get(DcMotor.class, "hookMotor");
-        lockServo = hardwareMap.get(Servo.class, "lockServo");
-        collectServo = hardwareMap.get(Servo.class, "rotationServo");
-
+        markerDrop = hardwareMap.get(Servo.class, "markerDrop");
+        collectServo = hardwareMap.get(CRServo.class, "rotationServo");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftDriveFront.setDirection(DcMotor.Direction.REVERSE);
         rightDriveFront.setDirection(DcMotor.Direction.FORWARD);
         leftDriveRear.setDirection(DcMotor.Direction.REVERSE);
         rightDriveRear.setDirection(DcMotor.Direction.FORWARD);
-        armRaise.setDirection(DcMotor.Direction.FORWARD);
         armExtend.setDirection(DcMotor.Direction.FORWARD);
         hookMotor.setDirection(DcMotor.Direction.FORWARD);
+        collectServo.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+        leftDriveFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightDriveFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftDriveRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightDriveRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armRaise.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hookMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    public void RotateArm(double power)
+    public void RaiseArm(double power)
     {
-        armRaise.setPower(power);
+            armRaise.setPower(power);
     }
 
     public void ExtendArm(MotorDirection direction, double power)
     {
-        if(direction == MotorDirection.Backward)
-            power = -power;
-
-        armExtend.setPower(power);
+        if(direction == MotorDirection.Backward) {
+            double newPower = -power;
+            armExtend.setPower(newPower);
+        }
+        else {
+            armExtend.setPower(power);
+        }
     }
 
     public void Hang(MotorDirection direction)
@@ -80,20 +90,15 @@ git
         }
     }
 
-    public void Collect(MotorDirection direction)
+    public void useCollector(MotorDirection direction)
     {
         switch (direction)
         {
             case Forward:
-                collectServo.setPosition(1);
+                collectServo.setPower(0.55);
                 break;
-
-            case Backward:
-             //   hookMotor.setPower(-HookPower);
-                break;
-
             case Off:
-                collectServo.setPosition(.5);
+                collectServo.setPower(0);
                 break;
         }
     }
@@ -106,8 +111,42 @@ git
         rightDriveRear.setPower(rightPower);
     }
 
-    public void UnlockServo()
+    public void markerDrop()
     {
-        lockServo.setPosition(1);
+        markerDrop.setPosition(1);
+    }
+
+    //GETTERS AND SETTERS
+
+    public DcMotor getLeftDriveFront() {
+        return leftDriveFront;
+    }
+
+    public void setLeftDriveFront(DcMotor leftDriveFront) {
+        this.leftDriveFront = leftDriveFront;
+    }
+
+    public DcMotor getRightDriveFront() {
+        return rightDriveFront;
+    }
+
+    public void setRightDriveFront(DcMotor rightDriveFront) {
+        this.rightDriveFront = rightDriveFront;
+    }
+
+    public DcMotor getLeftDriveRear() {
+        return leftDriveRear;
+    }
+
+    public void setLeftDriveRear(DcMotor leftDriveRear) {
+        this.leftDriveRear = leftDriveRear;
+    }
+
+    public DcMotor getRightDriveRear() {
+        return rightDriveRear;
+    }
+
+    public void setRightDriveRear(DcMotor rightDriveRear) {
+        this.rightDriveRear = rightDriveRear;
     }
 }

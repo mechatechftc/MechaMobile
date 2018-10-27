@@ -55,8 +55,6 @@ public class MMRobot {
         Ninevolt.setConfig(MMConfig.getInstance());
         hardware = initializeHardware(ctxl.hardwareMap);
         movement = new StandardMovement(hardware, ctxl, motorMode);
-
-
     }
 
     private Hardware initializeHardware(HardwareMap hardwareMap) throws Exception {

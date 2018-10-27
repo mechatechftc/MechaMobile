@@ -1,14 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.Gyroscope;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -30,10 +23,7 @@ public class TeleOp1 extends OpMode
     public void init() {
         _robot = new MMRobot2(this);
 
-      //  UnLock();
-        //Collect();
-
-        telemetry.addData("Status", "Initialized");
+        telemetry.addData("Collector", "Initialized");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -63,43 +53,48 @@ public class TeleOp1 extends OpMode
         Drive();
         HangRobot();
         RetractArm();
-        RotateArm();
+        RaiseArm();
+        Collect();
+        UnLock();
+
+
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();
     }
 
-    void RotateArm()
+    void RaiseArm()
     {
-        double power = Range.clip(gamepad2.left_stick_y, -1.0, 1.0) ;
-        _robot.RotateArm(power);
+        double power = Range.clip(gamepad2.left_stick_y, -0.5, 1.0) ;
+        _robot.RaiseArm(power);
         telemetry.addData("Arm Rotate", "Up");
     }
 
+
     void RetractArm()
     {
-        if(gamepad2.right_trigger > 0 && gamepad2.left_trigger > 0)
+        if(gamepad2.right_trigger > 0.0 && gamepad2.left_trigger > 0.0)
         {
             _robot.ExtendArm(MotorDirection.Off, 0);
-            telemetry.addData("Arm Extend", "Off");
+            //telemetry.addData("Arm Extend", "Off");
         }
-        else if(gamepad2.right_trigger >= 0)
+        else if(gamepad2.right_trigger > 0.0)
         {
             double power = Range.clip(gamepad2.right_trigger, 0.0, 1.0) ;
             _robot.ExtendArm(MotorDirection.Forward, power);
-            telemetry.addData("Arm Extend", "Power (%.2f)", power);
+            //telemetry.addData("Arm Extend", "Power (%.2f)", power);
         }
-        else if(gamepad2.left_trigger >= 0)
+        else if(gamepad2.left_trigger > 0.0)
         {
             double power = Range.clip(gamepad2.left_trigger, 0.0, 1.0) ;
             _robot.ExtendArm(MotorDirection.Backward, power);
-            telemetry.addData("Arm Extend", "Power (%.2f)", power);
+            //telemetry.addData("Arm Extend", "Power (%.2f)", power);
         }
         else
         {
-            _robot.ExtendArm(MotorDirection.Off, 0);
-            telemetry.addData("Arm Extend", "Power (%.2f)", 0);
+            _robot.ExtendArm(MotorDirection.Off, 0.0);
+            //telemetry.addData("Arm Extend", "Power (%.2f)", 0);
         }
     }
 
@@ -133,13 +128,15 @@ public class TeleOp1 extends OpMode
 
         // POV Mode uses left stick to go forward, and right stick to turn.
         // - This uses basic math to combine motions and is easier to drive straight.
-        double drive = -gamepad1.left_stick_y;
-        double turn  =  gamepad1.right_stick_x;
-        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+
+        //double drive = -gamepad1.left_stick_y;
+        //double turn  =  gamepad1.right_stick_x;
+        //leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
+        //rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
+
         leftPower  = -gamepad1.left_stick_y ;
         rightPower = -gamepad1.right_stick_y ;
 
@@ -151,19 +148,22 @@ public class TeleOp1 extends OpMode
     {
         if(gamepad2.a)
         {
-            _robot.Collect(MotorDirection.Forward);
-            telemetry.addData("Collect", "In");
+            _robot.useCollector(MotorDirection.Forward);
+            telemetry.addData("Collect", "On");
         }
-        else if(gamepad2.x)
+        if(gamepad2.x)
         {
-            _robot.Collect(MotorDirection.Off);
+            _robot.useCollector(MotorDirection.Off);
             telemetry.addData("Collect", "Off");
         }
     }
 
     public void UnLock()
     {
-        _robot.UnlockServo();
+        if(gamepad2.y) {
+            _robot.markerDrop();
+            telemetry.addData("MarkerDrop", "Dropping");
+        }
     }
 
     /*
