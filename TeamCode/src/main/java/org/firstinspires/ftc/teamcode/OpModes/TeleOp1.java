@@ -66,7 +66,7 @@ public class TeleOp1 extends OpMode
 
     void RaiseArm()
     {
-        double power = Range.clip(gamepad2.left_stick_y, -1.0, 1.0) ;
+        double power = Range.clip(gamepad2.left_stick_y, -0.5, 1.0) ;
         _robot.RaiseArm(power);
         telemetry.addData("Arm Rotate", "Up");
     }
@@ -136,8 +136,6 @@ public class TeleOp1 extends OpMode
 
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
-
-        //TODO Add autobraking
 
         leftPower  = -gamepad1.left_stick_y ;
         rightPower = -gamepad1.right_stick_y ;
