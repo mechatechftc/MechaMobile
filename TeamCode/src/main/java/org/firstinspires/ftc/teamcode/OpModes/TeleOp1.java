@@ -137,8 +137,8 @@ public class TeleOp1 extends OpMode
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
 
-        leftPower  = -gamepad1.left_stick_y ;
-        rightPower = -gamepad1.right_stick_y ;
+        leftPower  = Math.signum(-gamepad1.left_stick_y) * Math.pow(gamepad1.left_stick_y, 2);
+        rightPower = Math.signum(-gamepad1.right_stick_y) * Math.pow(gamepad1.right_stick_y, 2);
 
         _robot.Drive(leftPower, rightPower);
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);

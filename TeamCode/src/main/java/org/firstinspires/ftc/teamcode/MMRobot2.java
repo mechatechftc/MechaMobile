@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import android.content.ComponentCallbacks;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.*;
 
@@ -11,6 +12,7 @@ public class MMRobot2
     private static final double HookPower  = 1.0;
 
     private OpMode _ctx;
+    private LinearOpMode _ctxl;
     private DcMotor leftDriveFront = null;
     private DcMotor rightDriveFront = null;
     private DcMotor leftDriveRear = null;
@@ -26,6 +28,41 @@ public class MMRobot2
         _ctx = ctx;
 
         HardwareMap hardwareMap = ctx.hardwareMap;
+
+        leftDriveFront  = hardwareMap.get(DcMotor.class, "motorFL");
+        rightDriveFront = hardwareMap.get(DcMotor.class, "motorFR");
+        leftDriveRear  = hardwareMap.get(DcMotor.class, "motorBL");
+        rightDriveRear = hardwareMap.get(DcMotor.class,"motorBR");
+        armRaise = hardwareMap.get(DcMotor.class, "armRaise");
+        armExtend = hardwareMap.get(DcMotor.class, "armExtend");
+        hookMotor = hardwareMap.get(DcMotor.class, "hookMotor");
+        markerDrop = hardwareMap.get(Servo.class, "markerDrop");
+        collectServo = hardwareMap.get(CRServo.class, "rotationServo");
+        // Most robots need the motor on one side to be reversed to drive forward
+        // Reverse the motor that runs backwards when connected directly to the battery
+        leftDriveFront.setDirection(DcMotor.Direction.REVERSE);
+        rightDriveFront.setDirection(DcMotor.Direction.FORWARD);
+        leftDriveRear.setDirection(DcMotor.Direction.REVERSE);
+        rightDriveRear.setDirection(DcMotor.Direction.FORWARD);
+        armExtend.setDirection(DcMotor.Direction.FORWARD);
+        hookMotor.setDirection(DcMotor.Direction.FORWARD);
+        collectServo.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+        leftDriveFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightDriveFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftDriveRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightDriveRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armRaise.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hookMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    public MMRobot2(LinearOpMode ctxl)
+    {
+        _ctxl = ctxl;
+
+        HardwareMap hardwareMap = ctxl.hardwareMap;
 
         leftDriveFront  = hardwareMap.get(DcMotor.class, "motorFL");
         rightDriveFront = hardwareMap.get(DcMotor.class, "motorFR");
