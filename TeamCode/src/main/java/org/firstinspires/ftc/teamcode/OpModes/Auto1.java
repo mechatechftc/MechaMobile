@@ -1,4 +1,3 @@
-
 package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -68,7 +67,8 @@ public class Auto1 extends LinearOpMode {
         encoderDrive(TURN_SPEED,   -5.4975, 5.4975, 1.0);
         encoderDrive(DRIVE_SPEED, 45, 45, 5.0); //66
         robot.markerDrop();
-        encoderDrive(TURN_SPEED,   -500, 50, 1.0); //180
+        encoderDrive(TURN_SPEED,   -500, 50, 1.0); //90
+        encoderDrive(TURN_SPEED,   -500, 50, 1.0); //90
         encoderDrive(DRIVE_SPEED, 102, 102, 1.0);
 
 
