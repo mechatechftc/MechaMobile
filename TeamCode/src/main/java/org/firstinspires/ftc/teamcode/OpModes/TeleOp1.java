@@ -158,6 +158,13 @@ public class TeleOp1 extends OpMode
         }
     }
 
+    public void finalRaise(){
+        if(gamepad2.b){
+            _robot.finalLift();
+            telemetry.addData("Final Lift", "PLEASE WORK");
+        }
+    }
+
     public void UnLock()
     {
         if(gamepad2.y) {
