@@ -23,6 +23,8 @@ public class MMRobot2
     private Servo markerDrop = null;
     private CRServo collectServo = null;
 
+
+
     public MMRobot2(OpMode ctx)
     {
         _ctx = ctx;
@@ -185,5 +187,13 @@ public class MMRobot2
 
     public void setRightDriveRear(DcMotor rightDriveRear) {
         this.rightDriveRear = rightDriveRear;
+    }
+
+    public DcMotor getHookMotor() {
+        return hookMotor;
+    }
+
+    public void setHookMotor(DcMotor hookMotor) {
+        this.hookMotor = hookMotor;
     }
 }
