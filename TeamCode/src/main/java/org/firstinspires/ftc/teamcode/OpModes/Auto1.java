@@ -88,7 +88,7 @@ public class Auto1 extends LinearOpMode {
      *  3) Driver stops the opmode running.
      */
     public void encoderDrop(double speed, double timeoutS){
-        int newLowerTarget;
+        /*int newLowerTarget;
 
         if (opModeIsActive()) {
 
@@ -101,7 +101,17 @@ public class Auto1 extends LinearOpMode {
 
             runtime.reset();
             robot.getHookMotor().setPower(Math.abs(speed));
+
+        }*/
+        robot.getHookMotor().setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.getHookMotor().setPower(1.0);
+
+        while (opModeIsActive() && (runtime.seconds() < 12.0)) {
+
         }
+
+        robot.getHookMotor().setPower(0.0);
+
     }
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
