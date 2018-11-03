@@ -63,7 +63,7 @@ public class Auto1 extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         encoderDrive(DRIVE_SPEED,  8,  8, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
         encoderDrive(TURN_SPEED,   -10.995,10.995, 1.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        encoderDrive(DRIVE_SPEED, 20, 20, 5.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, 24, 24, 5.0);  // S3: Reverse 24 Inches with 4 Sec timeout
         encoderDrive(TURN_SPEED,   -8.24625, 8.24625, 1.0); //Originally 5.4975
         encoderDrive(DRIVE_SPEED, 56, 56, 5.0); //66
         robot.markerDrop();
