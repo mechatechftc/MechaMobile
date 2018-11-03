@@ -19,8 +19,6 @@ allprojects {
     }
 }
 
-<<<<<<< HEAD
-=======
 // This is now required because aapt2 has to be downloaded from the
 // google() repository beginning with version 3.2 of the Android Gradle Plugin
 allprojects {
@@ -29,4 +27,3 @@ allprojects {
         jcenter()
     }
 }
->>>>>>> 1df279274ca16aa67ec2b502bafe6eeab3bede7a
