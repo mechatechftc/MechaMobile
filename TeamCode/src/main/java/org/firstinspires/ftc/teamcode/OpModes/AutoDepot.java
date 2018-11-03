@@ -64,7 +64,7 @@ public class AutoDepot extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         encoderDrop(1,5.0);
         robot.useCollector(MotorDirection.Forward);
-        encoderDrive(DRIVE_SPEED,  8,  8, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(DRIVE_SPEED,  72,  72, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
         robot.markerDrop();
 
 
@@ -97,7 +97,7 @@ public class AutoDepot extends LinearOpMode {
 
         }*/
         robot.getHookMotor().setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.getHookMotor().setPower(1.0);
+        robot.getHookMotor().setPower(-1.0);
 
         while (opModeIsActive() && (runtime.seconds() < 12.0)) {
 

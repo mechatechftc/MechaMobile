@@ -104,7 +104,7 @@ public class Auto1 extends LinearOpMode {
 
         }*/
         robot.getHookMotor().setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.getHookMotor().setPower(1.0);
+        robot.getHookMotor().setPower(-1.0);
 
         while (opModeIsActive() && (runtime.seconds() < 12.0)) {
 
