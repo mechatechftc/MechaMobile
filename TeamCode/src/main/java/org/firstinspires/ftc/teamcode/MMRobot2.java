@@ -21,6 +21,9 @@ public class MMRobot2
     private DcMotor armExtend = null;
     private DcMotor hookMotor = null;
     private Servo markerDrop = null;
+    private Servo leftRaiseServo = null;
+    private Servo rightRaiseServo = null;
+    private Servo backRaiseServo = null;
     private CRServo collectServo = null;
 
 
@@ -39,6 +42,10 @@ public class MMRobot2
         armExtend = hardwareMap.get(DcMotor.class, "armExtend");
         hookMotor = hardwareMap.get(DcMotor.class, "hookMotor");
         markerDrop = hardwareMap.get(Servo.class, "markerDrop");
+        markerDrop = hardwareMap.get(Servo.class, "liftServoLeft");
+        markerDrop = hardwareMap.get(Servo.class, "liftServoRight");
+        markerDrop = hardwareMap.get(Servo.class, "liftServoBack");
+
         collectServo = hardwareMap.get(CRServo.class, "rotationServo");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery

@@ -62,12 +62,12 @@ public class Auto1 extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrop(1,5.0);
+        //encoderDrop(1,5.0);
         robot.useCollector(MotorDirection.Forward);
         encoderDrive(DRIVE_SPEED,  8,  8, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
         encoderDrive(TURN_SPEED,   -10.995,10.995, 1.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
         encoderDrive(DRIVE_SPEED, 24, 24, 5.0);  // S3: Reverse 24 Inches with 4 Sec timeout
-        encoderDrive(TURN_SPEED,   -8.24625, 8.24625, 1.0); //Originally 5.4975
+        encoderDrive(TURN_SPEED,   -5.4975, 5.4975, 1.0); //Originally 5.4975
         encoderDrive(DRIVE_SPEED, 57, 57, 5.0); //66
         robot.markerDrop();
         encoderDrive(TURN_SPEED,   -500, 60, 1.0); //90
@@ -106,7 +106,7 @@ public class Auto1 extends LinearOpMode {
         robot.getHookMotor().setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.getHookMotor().setPower(-1.0);
 
-        while (opModeIsActive() && (runtime.seconds() < 12.0)) {
+        while (opModeIsActive() && (runtime.seconds() < 14.0)) {
 
         }
 
