@@ -68,7 +68,7 @@ public class Auto1 extends LinearOpMode {
         encoderDrive(TURN_SPEED,   -10.995,10.995, 1.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
         encoderDrive(DRIVE_SPEED, 24, 24, 5.0);  // S3: Reverse 24 Inches with 4 Sec timeout
         encoderDrive(TURN_SPEED,   -8.24625, 8.24625, 1.0); //Originally 5.4975
-        encoderDrive(DRIVE_SPEED, 60, 60, 5.0); //66
+        encoderDrive(DRIVE_SPEED, 57, 57, 5.0); //66
         robot.markerDrop();
         encoderDrive(TURN_SPEED,   -500, 60, 1.0); //90
         encoderDrive(TURN_SPEED,   -500, 60, 1.0); //90
