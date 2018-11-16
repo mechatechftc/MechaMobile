@@ -19,11 +19,7 @@ public class MMRobot2
     private DcMotor rightDriveRear = null;
     private DcMotor armRaise = null;
     private DcMotor armExtend = null;
-    private DcMotor hookMotor = null;
     private Servo markerDrop = null;
-    private Servo leftRaiseServo = null;
-    private Servo rightRaiseServo = null;
-    private Servo backRaiseServo = null;
     private CRServo collectServo = null;
 
 
@@ -40,12 +36,7 @@ public class MMRobot2
         rightDriveRear = hardwareMap.get(DcMotor.class,"motorBR");
         armRaise = hardwareMap.get(DcMotor.class, "armRaise");
         armExtend = hardwareMap.get(DcMotor.class, "armExtend");
-        hookMotor = hardwareMap.get(DcMotor.class, "hookMotor");
         markerDrop = hardwareMap.get(Servo.class, "markerDrop");
-        leftRaiseServo = hardwareMap.get(Servo.class, "liftServoLeft");
-        rightRaiseServo = hardwareMap.get(Servo.class, "liftServoRight");
-        backRaiseServo = hardwareMap.get(Servo.class, "liftServoBack");
-
         collectServo = hardwareMap.get(CRServo.class, "rotationServo");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -54,7 +45,6 @@ public class MMRobot2
         leftDriveRear.setDirection(DcMotor.Direction.REVERSE);
         rightDriveRear.setDirection(DcMotor.Direction.FORWARD);
         armExtend.setDirection(DcMotor.Direction.FORWARD);
-        hookMotor.setDirection(DcMotor.Direction.FORWARD);
         collectServo.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
@@ -64,7 +54,6 @@ public class MMRobot2
         rightDriveRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armRaise.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        hookMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public MMRobot2(LinearOpMode ctxl)
@@ -79,11 +68,7 @@ public class MMRobot2
         rightDriveRear = hardwareMap.get(DcMotor.class,"motorBR");
         armRaise = hardwareMap.get(DcMotor.class, "armRaise");
         armExtend = hardwareMap.get(DcMotor.class, "armExtend");
-        hookMotor = hardwareMap.get(DcMotor.class, "hookMotor");
         markerDrop = hardwareMap.get(Servo.class, "markerDrop");
-        leftRaiseServo = hardwareMap.get(Servo.class, "liftServoLeft");
-        rightRaiseServo = hardwareMap.get(Servo.class, "liftServoRight");
-        backRaiseServo = hardwareMap.get(Servo.class, "liftServoBack");
         collectServo = hardwareMap.get(CRServo.class, "rotationServo");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -92,7 +77,6 @@ public class MMRobot2
         leftDriveRear.setDirection(DcMotor.Direction.REVERSE);
         rightDriveRear.setDirection(DcMotor.Direction.FORWARD);
         armExtend.setDirection(DcMotor.Direction.FORWARD);
-        hookMotor.setDirection(DcMotor.Direction.FORWARD);
         collectServo.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
@@ -102,7 +86,6 @@ public class MMRobot2
         rightDriveRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armRaise.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        hookMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void RaiseArm(double power)
@@ -118,24 +101,6 @@ public class MMRobot2
         }
         else {
             armExtend.setPower(power);
-        }
-    }
-
-    public void Hang(MotorDirection direction)
-    {
-        switch (direction)
-        {
-            case Forward:
-                hookMotor.setPower(HookPower);
-                break;
-
-            case Backward:
-                hookMotor.setPower(-HookPower);
-                break;
-
-            case Off:
-                hookMotor.setPower(0);
-                break;
         }
     }
 
@@ -160,12 +125,6 @@ public class MMRobot2
         rightDriveRear.setPower(rightPower);
     }
 
-    public void finalLift() {
-        leftRaiseServo.setPosition(1);
-        rightRaiseServo.setPosition(1);
-        backRaiseServo.setPosition(1);
-
-    }
     public void markerDrop()
     {
         markerDrop.setPosition(1);
@@ -203,13 +162,5 @@ public class MMRobot2
 
     public void setRightDriveRear(DcMotor rightDriveRear) {
         this.rightDriveRear = rightDriveRear;
-    }
-
-    public DcMotor getHookMotor() {
-        return hookMotor;
-    }
-
-    public void setHookMotor(DcMotor hookMotor) {
-        this.hookMotor = hookMotor;
     }
 }

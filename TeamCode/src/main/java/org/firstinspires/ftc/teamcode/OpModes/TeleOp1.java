@@ -51,7 +51,6 @@ public class TeleOp1 extends OpMode
     public void loop()
     {
         Drive();
-        HangRobot();
         RetractArm();
         RaiseArm();
         Collect();
@@ -98,25 +97,6 @@ public class TeleOp1 extends OpMode
         }
     }
 
-    void HangRobot()
-    {
-        if(gamepad2.right_bumper)
-        {
-            _robot.Hang(MotorDirection.Forward);
-            telemetry.addData("Hook", "Up");
-        }
-        else if(gamepad2.left_bumper)
-        {
-            _robot.Hang(MotorDirection.Backward);
-            telemetry.addData("Hook", "Down");
-        }
-        else
-        {
-            _robot.Hang(MotorDirection.Off);
-            telemetry.addData("Hook", "Off");
-        }
-    }
-
     void Drive()
     {
         // Setup a variable for each drive wheel to save power level for telemetry
@@ -155,13 +135,6 @@ public class TeleOp1 extends OpMode
         {
             _robot.useCollector(MotorDirection.Off);
             telemetry.addData("Collect", "Off");
-        }
-    }
-
-    public void finalRaise(){
-        if(gamepad2.b){
-            _robot.finalLift();
-            telemetry.addData("Final Lift", "PLEASE WORK");
         }
     }
 
