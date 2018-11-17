@@ -51,7 +51,6 @@ public class TeleOp1 extends OpMode
     public void loop()
     {
         Drive();
-        HangRobot();
         RetractArm();
         RaiseArm();
         Collect();
@@ -95,25 +94,6 @@ public class TeleOp1 extends OpMode
         {
             _robot.ExtendArm(MotorDirection.Off, 0.0);
             //telemetry.addData("Arm Extend", "Power (%.2f)", 0);
-        }
-    }
-
-    void HangRobot()
-    {
-        if(gamepad2.right_bumper)
-        {
-            _robot.Hang(MotorDirection.Forward);
-            telemetry.addData("Hook", "Up");
-        }
-        else if(gamepad2.left_bumper)
-        {
-            _robot.Hang(MotorDirection.Backward);
-            telemetry.addData("Hook", "Down");
-        }
-        else
-        {
-            _robot.Hang(MotorDirection.Off);
-            telemetry.addData("Hook", "Off");
         }
     }
 

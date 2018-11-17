@@ -19,11 +19,7 @@ public class MMRobot2
     private DcMotor rightDriveRear = null;
     private DcMotor armRaise = null;
     private DcMotor armExtend = null;
-    private DcMotor hookMotor = null;
     private Servo markerDrop = null;
-    private Servo leftRaiseServo = null;
-    private Servo rightRaiseServo = null;
-    private Servo backRaiseServo = null;
     private CRServo collectServo = null;
 
 
@@ -40,12 +36,7 @@ public class MMRobot2
         rightDriveRear = hardwareMap.get(DcMotor.class,"motorBR");
         armRaise = hardwareMap.get(DcMotor.class, "armRaise");
         armExtend = hardwareMap.get(DcMotor.class, "armExtend");
-        hookMotor = hardwareMap.get(DcMotor.class, "hookMotor");
         markerDrop = hardwareMap.get(Servo.class, "markerDrop");
-        markerDrop = hardwareMap.get(Servo.class, "liftServoLeft");
-        markerDrop = hardwareMap.get(Servo.class, "liftServoRight");
-        markerDrop = hardwareMap.get(Servo.class, "liftServoBack");
-
         collectServo = hardwareMap.get(CRServo.class, "rotationServo");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -54,7 +45,6 @@ public class MMRobot2
         leftDriveRear.setDirection(DcMotor.Direction.REVERSE);
         rightDriveRear.setDirection(DcMotor.Direction.FORWARD);
         armExtend.setDirection(DcMotor.Direction.FORWARD);
-        hookMotor.setDirection(DcMotor.Direction.FORWARD);
         collectServo.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
@@ -64,7 +54,6 @@ public class MMRobot2
         rightDriveRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armRaise.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        hookMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public MMRobot2(LinearOpMode ctxl)
@@ -79,7 +68,6 @@ public class MMRobot2
         rightDriveRear = hardwareMap.get(DcMotor.class,"motorBR");
         armRaise = hardwareMap.get(DcMotor.class, "armRaise");
         armExtend = hardwareMap.get(DcMotor.class, "armExtend");
-        hookMotor = hardwareMap.get(DcMotor.class, "hookMotor");
         markerDrop = hardwareMap.get(Servo.class, "markerDrop");
         collectServo = hardwareMap.get(CRServo.class, "rotationServo");
         // Most robots need the motor on one side to be reversed to drive forward
@@ -89,7 +77,6 @@ public class MMRobot2
         leftDriveRear.setDirection(DcMotor.Direction.REVERSE);
         rightDriveRear.setDirection(DcMotor.Direction.FORWARD);
         armExtend.setDirection(DcMotor.Direction.FORWARD);
-        hookMotor.setDirection(DcMotor.Direction.FORWARD);
         collectServo.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
@@ -99,7 +86,6 @@ public class MMRobot2
         rightDriveRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armRaise.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        hookMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void RaiseArm(double power)
@@ -115,24 +101,6 @@ public class MMRobot2
         }
         else {
             armExtend.setPower(power);
-        }
-    }
-
-    public void Hang(MotorDirection direction)
-    {
-        switch (direction)
-        {
-            case Forward:
-                hookMotor.setPower(HookPower);
-                break;
-
-            case Backward:
-                hookMotor.setPower(-HookPower);
-                break;
-
-            case Off:
-                hookMotor.setPower(0);
-                break;
         }
     }
 
@@ -195,6 +163,7 @@ public class MMRobot2
     public void setRightDriveRear(DcMotor rightDriveRear) {
         this.rightDriveRear = rightDriveRear;
     }
+<<<<<<< HEAD
 
     public DcMotor getHookMotor() {
         return hookMotor;
@@ -204,3 +173,6 @@ public class MMRobot2
         this.hookMotor = hookMotor;
     }
 }
+=======
+}
+>>>>>>> 46f79721d5344ecc7d38ed4fd18c986430d511d5
