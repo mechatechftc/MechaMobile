@@ -163,4 +163,16 @@ public class MMRobot2
     public void setRightDriveRear(DcMotor rightDriveRear) {
         this.rightDriveRear = rightDriveRear;
     }
+<<<<<<< HEAD
+
+    public DcMotor getHookMotor() {
+        return hookMotor;
+    }
+
+    public void setHookMotor(DcMotor hookMotor) {
+        this.hookMotor = hookMotor;
+    }
 }
+=======
+}
+>>>>>>> 46f79721d5344ecc7d38ed4fd18c986430d511d5
