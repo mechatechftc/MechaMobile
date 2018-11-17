@@ -147,8 +147,6 @@ public class AutoDepot extends LinearOpMode {
             robot.getLeftDriveRear().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.getRightDriveFront().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.getRightDriveRear().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            //  sleep(250);   // optional pause after each move
         }
     }
 }
