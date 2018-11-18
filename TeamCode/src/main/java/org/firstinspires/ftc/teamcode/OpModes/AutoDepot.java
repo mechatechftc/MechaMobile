@@ -64,10 +64,9 @@ public class AutoDepot extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        robot.useCollector(MotorDirection.Forward);
+        //robot.useCollector(MotorDirection.Forward);
         encoderDrive(DRIVE_SPEED,  72,  72, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        robot.markerDrop();
-
+        //encoderDrive(DRIVE_SPEED,  0,  0, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -84,36 +83,30 @@ public class AutoDepot extends LinearOpMode {
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
-        int newLeftFrontTarget;
         int newLeftRearTarget;
-        int newRightFrontTarget;
         int newRightRearTarget;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftFrontTarget = robot.getLeftDriveFront().getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
             newLeftRearTarget = robot.getLeftDriveRear().getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightFrontTarget = robot.getRightDriveFront().getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
             newRightRearTarget = robot.getRightDriveRear().getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
 
-            robot.getLeftDriveFront().setTargetPosition(newLeftFrontTarget);
             robot.getLeftDriveRear().setTargetPosition(newLeftRearTarget);
-            robot.getRightDriveFront().setTargetPosition(newRightFrontTarget);
             robot.getRightDriveRear().setTargetPosition(newRightRearTarget);
 
             // Turn On RUN_TO_POSITION
-            robot.getLeftDriveFront().setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.getLeftDriveRear().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.getRightDriveFront().setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.getRightDriveRear().setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
-            robot.getLeftDriveFront().setPower(Math.abs(speed));
+            robot.getLeftDriveFront().setPower(0);
+            robot.getLeftDriveFront().setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             robot.getLeftDriveRear().setPower(Math.abs(speed));
-            robot.getRightDriveFront().setPower(Math.abs(speed));
+            robot.getRightDriveFront().setPower(0);
+            robot.getRightDriveFront().setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             robot.getRightDriveRear().setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
@@ -124,19 +117,16 @@ public class AutoDepot extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (robot.getLeftDriveFront().isBusy() && robot.getLeftDriveRear().isBusy()
-                            && robot.getRightDriveFront().isBusy() && robot.getRightDriveRear().isBusy())) {
+                    (robot.getLeftDriveRear().isBusy() && robot.getRightDriveRear().isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftFrontTarget,  newRightFrontTarget);
+                telemetry.addData("Path1",  "Running to %7d :%7d");
                 telemetry.addData("Path2",  "Running at %7d :%7d",
-                        robot.getLeftDriveFront().getCurrentPosition(),
                         robot.getLeftDriveRear().getCurrentPosition(),
-                        robot.getRightDriveFront().getCurrentPosition(),
                         robot.getRightDriveRear().getCurrentPosition());
                 telemetry.update();
             }
-
+            robot.markerDrop();
             // Stop all motion;
             robot.getLeftDriveFront().setPower(0);
             robot.getLeftDriveRear().setPower(0);
@@ -145,9 +135,7 @@ public class AutoDepot extends LinearOpMode {
 
 
             // Turn off RUN_TO_POSITION
-            robot.getLeftDriveFront().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.getLeftDriveRear().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.getRightDriveFront().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.getRightDriveRear().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }

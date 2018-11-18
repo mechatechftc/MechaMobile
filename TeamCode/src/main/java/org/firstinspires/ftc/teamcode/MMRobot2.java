@@ -90,7 +90,7 @@ public class MMRobot2
 
     public void RaiseArm(double power)
     {
-            armRaise.setPower(power);
+            armRaise.setPower(-power);
     }
 
     public void ExtendArm(MotorDirection direction, double power)
@@ -111,6 +111,8 @@ public class MMRobot2
             case Forward:
                 collectServo.setPower(0.55);
                 break;
+            case Backward:
+                collectServo.setPower(-1);
             case Off:
                 collectServo.setPower(0);
                 break;
@@ -163,16 +165,5 @@ public class MMRobot2
     public void setRightDriveRear(DcMotor rightDriveRear) {
         this.rightDriveRear = rightDriveRear;
     }
-<<<<<<< HEAD
 
-    public DcMotor getHookMotor() {
-        return hookMotor;
-    }
-
-    public void setHookMotor(DcMotor hookMotor) {
-        this.hookMotor = hookMotor;
-    }
 }
-=======
-}
->>>>>>> 46f79721d5344ecc7d38ed4fd18c986430d511d5

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -65,7 +66,7 @@ public class TeleOp1 extends OpMode
 
     void RaiseArm()
     {
-        double power = Range.clip(gamepad2.left_stick_y, -0.5, 1.0) ;
+        double power = Range.clip(gamepad2.left_stick_y, -1, 0.5) ;
         _robot.RaiseArm(power);
         telemetry.addData("Arm Rotate", "Up");
     }
@@ -99,6 +100,10 @@ public class TeleOp1 extends OpMode
 
     void Drive()
     {
+        _robot.getLeftDriveFront().setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        _robot.getRightDriveFront().setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        _robot.getLeftDriveRear().setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        _robot.getRightDriveRear().setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         // Setup a variable for each drive wheel to save power level for telemetry
         double leftPower;
         double rightPower;
@@ -130,6 +135,10 @@ public class TeleOp1 extends OpMode
         {
             _robot.useCollector(MotorDirection.Forward);
             telemetry.addData("Collect", "On");
+        }
+        if(gamepad2.b){
+            _robot.useCollector(MotorDirection.Backward);
+            telemetry.addData("Collect", "Backwards");
         }
         if(gamepad2.x)
         {
