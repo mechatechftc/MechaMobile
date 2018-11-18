@@ -10,8 +10,8 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 import org.firstinspires.ftc.teamcode.MMRobot2;
 import org.firstinspires.ftc.teamcode.MotorDirection;
 
-@Autonomous(name="MechaMobile: AutoReverse", group="Autonomous")
-public class AutoReverse extends LinearOpMode {
+@Autonomous(name="MechaMobile: AutoReverseCrater", group="Autonomous")
+public class AutoReverseCrater extends LinearOpMode {
 
     //Declare OpMode members.
     MMRobot2 robot;
@@ -66,10 +66,6 @@ public class AutoReverse extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //robot.useCollector(MotorDirection.Forward);
         encoderDrive(0.3, 72, 72, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        robot.markerDrop();
-        robot.markerDrop();
-        robot.markerDrop();
-        robot.markerDrop();
         //encoderDrive(DRIVE_SPEED,  0,  0, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
 
         telemetry.addData("Path", "Complete");
@@ -130,7 +126,6 @@ public class AutoReverse extends LinearOpMode {
                         robot.getRightDriveRear().getCurrentPosition());
                 telemetry.update();
             }
-            robot.markerDrop();
             // Stop all motion;
             robot.getLeftDriveFront().setPower(0);
             robot.getLeftDriveRear().setPower(0);
