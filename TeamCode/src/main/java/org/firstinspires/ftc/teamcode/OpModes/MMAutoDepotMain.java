@@ -10,8 +10,8 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 import org.firstinspires.ftc.teamcode.MMRobot2;
 import org.firstinspires.ftc.teamcode.MotorDirection;
 
-@Autonomous(name="MechaMobile: MMAutoDepot", group="Autonomous")
-public class MMAutoDepot extends LinearOpMode {
+@Autonomous(name="MechaMobile: MMAutoDepotMain(Main)", group="Autonomous")
+public class MMAutoDepotMain extends LinearOpMode {
 
     //Declare OpMode members.
     MMRobot2 robot;
@@ -83,30 +83,36 @@ public class MMAutoDepot extends LinearOpMode {
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
+        int newLeftFrontTarget;
         int newLeftRearTarget;
+        int newRightFrontTarget;
         int newRightRearTarget;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
+            newLeftFrontTarget = robot.getLeftDriveFront().getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
             newLeftRearTarget = robot.getLeftDriveRear().getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newRightFrontTarget = robot.getRightDriveFront().getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
             newRightRearTarget = robot.getRightDriveRear().getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
 
+            robot.getLeftDriveFront().setTargetPosition(newLeftFrontTarget);
             robot.getLeftDriveRear().setTargetPosition(newLeftRearTarget);
+            robot.getRightDriveFront().setTargetPosition(newRightFrontTarget);
             robot.getRightDriveRear().setTargetPosition(newRightRearTarget);
 
             // Turn On RUN_TO_POSITION
+            robot.getLeftDriveFront().setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.getLeftDriveRear().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.getRightDriveFront().setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.getRightDriveRear().setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
-            robot.getLeftDriveFront().setPower(0);
-            robot.getLeftDriveFront().setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            robot.getLeftDriveFront().setPower(Math.abs(speed));
             robot.getLeftDriveRear().setPower(Math.abs(speed));
-            robot.getRightDriveFront().setPower(0);
-            robot.getRightDriveFront().setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            robot.getRightDriveFront().setPower(Math.abs(speed));
             robot.getRightDriveRear().setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
