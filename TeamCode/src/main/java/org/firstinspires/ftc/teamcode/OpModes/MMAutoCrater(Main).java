@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 import org.firstinspires.ftc.teamcode.MMRobot2;
 import org.firstinspires.ftc.teamcode.MotorDirection;
 
-@Autonomous(name="MechaMobile: Auto", group="Autonomous")
+@Autonomous(name="MechaMobile: MMAutoCrater(Main)", group="Autonomous")
 public class MMAutoMain extends LinearOpMode {
 
     //Declare OpMode members.
