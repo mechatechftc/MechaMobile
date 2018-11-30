@@ -123,12 +123,15 @@ public class MMAutoDepotMain extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (robot.getLeftDriveRear().isBusy() && robot.getRightDriveRear().isBusy())) {
+                    (robot.getLeftDriveFront().isBusy() && robot.getLeftDriveRear().isBusy()
+                            && robot.getRightDriveFront().isBusy() && robot.getRightDriveRear().isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d");
+                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftFrontTarget,  newRightFrontTarget);
                 telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.getLeftDriveFront().getCurrentPosition(),
                         robot.getLeftDriveRear().getCurrentPosition(),
+                        robot.getRightDriveFront().getCurrentPosition(),
                         robot.getRightDriveRear().getCurrentPosition());
                 telemetry.update();
             }
