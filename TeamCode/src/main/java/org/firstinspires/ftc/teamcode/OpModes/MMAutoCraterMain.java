@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.MMRobot2;
 import org.firstinspires.ftc.teamcode.MotorDirection;
 
 @Autonomous(name="MechaMobile: MMAutoCrater(Main)", group="Autonomous")
-public class MMAutoMain extends LinearOpMode {
+public class MMAutoCraterMain extends LinearOpMode {
 
     //Declare OpMode members.
     MMRobot2 robot;
