@@ -1,27 +1,31 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 import org.firstinspires.ftc.teamcode.MMRobot2;
+import org.firstinspires.ftc.teamcode.MotorDirection;
 
-@Autonomous(name="MechaMobile: MMAutoReverseCrater", group="Autonomous")
-public class MMAutoReverseCrater extends LinearOpMode {
+@Autonomous(name="MechaMobile: MMAutoDepot", group="Autonomous")
+public class MMAutoDepot extends LinearOpMode {
 
     //Declare OpMode members.
     MMRobot2 robot;
     private ElapsedTime runtime = new ElapsedTime();
 
-    static final double COUNTS_PER_MOTOR_REV = 560;    // eg: TETRIX Motor Encoder
-    static final double DRIVE_GEAR_REDUCTION = 1;     // This is < 1.0 if geared UP
-    static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
+    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder
+    static final double     DRIVE_GEAR_REDUCTION    = 40 ;     // This is < 1.0 if geared UP
+    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
 
     //20-1 RN, Possible Change to 40-1 later, Output counts per revolution of Output Shaft (cpr): 1120 (280 rises of Channel A)
-    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double DRIVE_SPEED = 0.6;
-    static final double TURN_SPEED = 0.5;
+    static final double     DRIVE_SPEED             = 0.6;
+    static final double     TURN_SPEED              = 0.5;
 
     @Override
     public void runOpMode() {
@@ -48,7 +52,7 @@ public class MMAutoReverseCrater extends LinearOpMode {
         robot.getRightDriveFront().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Path0", "Starting at %7d :%7d",
+        telemetry.addData("Path0",  "Starting at %7d :%7d",
                 robot.getLeftDriveFront().getCurrentPosition(),
                 robot.getLeftDriveRear().getCurrentPosition(),
                 robot.getRightDriveFront().getCurrentPosition(),
@@ -61,7 +65,7 @@ public class MMAutoReverseCrater extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //robot.useCollector(MotorDirection.Forward);
-        encoderDrive(0.3, 72, 72, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(DRIVE_SPEED,  72,  72, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
         //encoderDrive(DRIVE_SPEED,  0,  0, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
 
         telemetry.addData("Path", "Complete");
@@ -86,8 +90,8 @@ public class MMAutoReverseCrater extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftRearTarget = robot.getLeftDriveRear().getCurrentPosition() + (int) (-leftInches * COUNTS_PER_INCH);
-            newRightRearTarget = robot.getRightDriveRear().getCurrentPosition() + (int) (-rightInches * COUNTS_PER_INCH);
+            newLeftRearTarget = robot.getLeftDriveRear().getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newRightRearTarget = robot.getRightDriveRear().getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
 
             robot.getLeftDriveRear().setTargetPosition(newLeftRearTarget);
             robot.getRightDriveRear().setTargetPosition(newRightRearTarget);
@@ -100,10 +104,10 @@ public class MMAutoReverseCrater extends LinearOpMode {
             runtime.reset();
             robot.getLeftDriveFront().setPower(0);
             robot.getLeftDriveFront().setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            robot.getLeftDriveRear().setPower((Math.abs(speed)));
+            robot.getLeftDriveRear().setPower(Math.abs(speed));
             robot.getRightDriveFront().setPower(0);
             robot.getRightDriveFront().setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            robot.getRightDriveRear().setPower((Math.abs(speed)));
+            robot.getRightDriveRear().setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -116,12 +120,13 @@ public class MMAutoReverseCrater extends LinearOpMode {
                     (robot.getLeftDriveRear().isBusy() && robot.getRightDriveRear().isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d");
-                telemetry.addData("Path2", "Running at %7d :%7d",
+                telemetry.addData("Path1",  "Running to %7d :%7d");
+                telemetry.addData("Path2",  "Running at %7d :%7d",
                         robot.getLeftDriveRear().getCurrentPosition(),
                         robot.getRightDriveRear().getCurrentPosition());
                 telemetry.update();
             }
+            robot.markerDrop();
             // Stop all motion;
             robot.getLeftDriveFront().setPower(0);
             robot.getLeftDriveRear().setPower(0);
