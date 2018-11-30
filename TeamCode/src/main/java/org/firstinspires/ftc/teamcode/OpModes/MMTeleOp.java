@@ -1,127 +1,165 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
-import com.edinaftc.ninevolt.core.hw.Hardware;
-import com.edinaftc.ninevolt.core.hw.drivetrain.Movement;
-import com.edinaftc.ninevolt.util.ExceptionHandling;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.Functions.MMArm;
-import org.firstinspires.ftc.teamcode.MMRobot;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
-/**
- * Created by Nickolas Idrogo-Lam and Eric Seng 9/27/18
- */
-@TeleOp(name = "TeleOp Drive 1", group = "real")
-@Disabled
-public class MMTeleOp extends OpMode {
-
-    private MMRobot robot;
-    private MMArm arm;
-    private Movement movement;
-    private Hardware hardware;
-    private int block;
-    private double lastBlockUpdateTime;
+import org.firstinspires.ftc.teamcode.MMRobot2;
+import org.firstinspires.ftc.teamcode.MotorDirection;
 
 
-    // Initialization block - run once
+@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+public class MMTeleOp extends OpMode
+{
+    // Declare OpMode members.
+    private ElapsedTime runtime = new ElapsedTime();
+    private MMRobot2 _robot ;
+
+    /*
+     * Code to run ONCE when the driver hits INIT
+     */
     @Override
     public void init() {
-        try {
-            // Actually initialize robot
-            robot = new MMRobot(this);
+        _robot = new MMRobot2(this);
 
-            // Utility variables
-            hardware = robot.getHardware();
-            movement = robot.getMovement();
+        telemetry.addData("Collector", "Initialized");
 
-
-            movement.setDefaultRunUsingEncoders(true);
-            // Alert user that initialization was successful
-            telemetry.addData("Initialization", "Done!");
-            telemetry.update();
-
-        } catch (Exception e) {
-            // Stops OpMode and prints exception in case of exception
-            ExceptionHandling.standardExceptionHandling(e, this);
-        }
+        // Tell the driver that initialization is complete.
+        telemetry.addData("Status", "Initialized");
     }
 
-  
-  
-    // Start block - run on play press - after init, before loop
+    /*
+     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
+     */
+    @Override
+    public void init_loop() {
+    }
+
+    /*
+     * Code to run ONCE when the driver hits PLAY
+     */
     @Override
     public void start() {
-        // Initalize block timer
-        try {
-            resetStartTime();
-            block = 1;
-            lastBlockUpdateTime = 0;
-        } catch (Exception e) {
-            ExceptionHandling.standardExceptionHandling(e, this);
-        }
+        runtime.reset();
     }
 
-  
-    // Loop block - run repeatedly after init
+    /*
+     * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+     */
     @Override
-    public void loop() {
-        try {
-            drive(softGear());
-            blockNotify(getRuntime());
-        } catch (Exception e) {
-            ExceptionHandling.standardExceptionHandling(e, this);
-        }
-
-    }
+    public void loop()
+    {
+        Drive();
+        RetractArm();
+        RaiseArm();
+        Collect();
+        UnLock();
 
 
-    public void drive(float gearRatio) {
-        if (gamepad1.left_trigger != 0) {
-            movement.directDrive(-gamepad1.left_trigger * gearRatio, 0, 0);
-        } else if (gamepad1.right_trigger != 0) {
-            movement.directDrive(gamepad1.right_trigger * gearRatio, 0, 0);
-        } else {
-            movement.directDrive(
-                    0,
-                    -gamepad1.left_stick_y * gearRatio,
-                    gamepad1.right_stick_x * gearRatio
-            );
-        }
-    }
 
-    public void armControlRaising() {
-        if (gamepad2.right_bumper) arm.raiseArm(1);
-        else if (gamepad2.left_bumper) arm.lowerArm(-1);
-    }
-
-    public void armControlExtending() {
-        if (gamepad2.dpad_up) arm.extendArm(1);
-        if (gamepad2.dpad_down) arm.retractArm(-1);
-    }
-
-    public void servoController(){
-        if (gamepad2.right_trigger > 0) arm.intake();
-    }
-
-    public float softGear() {
-        if (gamepad1.right_bumper) {
-            return 0.5f;
-        } else {
-            return 1f;
-        }
-    }
-
-    //Let the user know when TeleOp has ended
-    public void blockNotify(double rt) {
-        telemetry.addData("Block", block);
-        if (rt - lastBlockUpdateTime > 10 && block < 12) {
-            block++;
-            lastBlockUpdateTime =  rt;
-        }
-        if(rt > 90) {
-            telemetry.addLine("End Game");
-        }
+        // Show the elapsed game time and wheel power.
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();
     }
+
+    void RaiseArm()
+    {
+        double power = Range.clip(gamepad2.left_stick_y, -1, 0.5) ;
+        _robot.RaiseArm(power);
+        telemetry.addData("Arm Rotate", "Up");
+    }
+
+
+    void RetractArm()
+    {
+        if(gamepad2.right_trigger > 0.0 && gamepad2.left_trigger > 0.0)
+        {
+            _robot.ExtendArm(MotorDirection.Off, 0);
+            //telemetry.addData("Arm Extend", "Off");
+        }
+        else if(gamepad2.right_trigger > 0.0)
+        {
+            double power = Range.clip(gamepad2.right_trigger, 0.0, 1.0) ;
+            _robot.ExtendArm(MotorDirection.Forward, power);
+            //telemetry.addData("Arm Extend", "Power (%.2f)", power);
+        }
+        else if(gamepad2.left_trigger > 0.0)
+        {
+            double power = Range.clip(gamepad2.left_trigger, 0.0, 1.0) ;
+            _robot.ExtendArm(MotorDirection.Backward, power);
+            //telemetry.addData("Arm Extend", "Power (%.2f)", power);
+        }
+        else
+        {
+            _robot.ExtendArm(MotorDirection.Off, 0.0);
+            //telemetry.addData("Arm Extend", "Power (%.2f)", 0);
+        }
+    }
+
+    void Drive()
+    {
+        _robot.getLeftDriveFront().setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        _robot.getRightDriveFront().setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        _robot.getLeftDriveRear().setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        _robot.getRightDriveRear().setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        // Setup a variable for each drive wheel to save power level for telemetry
+        double leftPower;
+        double rightPower;
+
+        // Choose to drive using either Tank Mode, or POV Mode
+        // Comment out the method that's not used.  The default below is POV.
+
+        // POV Mode uses left stick to go forward, and right stick to turn.
+        // - This uses basic math to combine motions and is easier to drive straight.
+
+        //double drive = -gamepad1.left_stick_y;
+        //double turn  =  gamepad1.right_stick_x;
+        //leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
+        //rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+
+        // Tank Mode uses one stick to control each wheel.
+        // - This requires no math, but it is hard to drive forward slowly and keep straight.
+
+        leftPower  = Math.signum(-gamepad1.left_stick_y) * Math.pow(gamepad1.left_stick_y, 2);
+        rightPower = Math.signum(-gamepad1.right_stick_y) * Math.pow(gamepad1.right_stick_y, 2);
+
+        _robot.Drive(leftPower, rightPower);
+        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+    }
+
+    void Collect()
+    {
+        if(gamepad2.a)
+        {
+            _robot.useCollector(MotorDirection.Forward);
+            telemetry.addData("Collect", "On");
+        }
+        if(gamepad2.b){
+            _robot.useCollector(MotorDirection.Backward);
+            telemetry.addData("Collect", "Backwards");
+        }
+        if(gamepad2.x)
+        {
+            _robot.useCollector(MotorDirection.Off);
+            telemetry.addData("Collect", "Off");
+        }
+    }
+
+    public void UnLock()
+    {
+        if(gamepad2.y) {
+            _robot.markerDrop();
+            telemetry.addData("MarkerDrop", "Dropping");
+        }
+    }
+
+    /*
+     * Code to run ONCE after the driver hits STOP
+     */
+    @Override
+    public void stop() {
+    }
+
 }

@@ -10,8 +10,8 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 import org.firstinspires.ftc.teamcode.MMRobot2;
 import org.firstinspires.ftc.teamcode.MotorDirection;
 
-@Autonomous(name="MechaMobile: AutoDepot", group="Autonomous")
-public class AutoDepot extends LinearOpMode {
+@Autonomous(name="MechaMobile: MMAutoDepot", group="Autonomous")
+public class MMAutoDepot extends LinearOpMode {
 
     //Declare OpMode members.
     MMRobot2 robot;

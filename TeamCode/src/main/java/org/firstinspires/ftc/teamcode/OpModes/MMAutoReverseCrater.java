@@ -1,17 +1,13 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 import org.firstinspires.ftc.teamcode.MMRobot2;
-import org.firstinspires.ftc.teamcode.MotorDirection;
 
-@Autonomous(name="MechaMobile: AutoReverseCrater", group="Autonomous")
-public class AutoReverseCrater extends LinearOpMode {
+@Autonomous(name="MechaMobile: MMAutoReverseCrater", group="Autonomous")
+public class MMAutoReverseCrater extends LinearOpMode {
 
     //Declare OpMode members.
     MMRobot2 robot;
