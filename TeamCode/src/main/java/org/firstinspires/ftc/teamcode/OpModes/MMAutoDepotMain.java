@@ -61,7 +61,7 @@ public class MMAutoDepotMain extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
+        encoderDrop();
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //robot.useCollector(MotorDirection.Forward);
@@ -71,6 +71,18 @@ public class MMAutoDepotMain extends LinearOpMode {
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }
+
+    public void encoderDrop(){
+        robot.getHangMotor().setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.getHangMotor().setPower(1.0);
+
+        while (opModeIsActive() && (runtime.seconds() < 12.0)) {
+
+        }
+        robot.getHangMotor().setPower(0);
+    }
+
+
 
     /*
      *  Method to perfmorm a relative move, based on encoder counts.

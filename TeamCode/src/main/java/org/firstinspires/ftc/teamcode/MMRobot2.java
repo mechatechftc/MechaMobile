@@ -17,6 +17,7 @@ public class MMRobot2
     private DcMotor rightDriveFront = null;
     private DcMotor leftDriveRear = null;
     private DcMotor rightDriveRear = null;
+    private DcMotor hangMotor = null;
     private DcMotor armRaise = null;
     private DcMotor armExtend = null;
     private Servo markerDrop = null;
@@ -34,6 +35,7 @@ public class MMRobot2
         rightDriveFront = hardwareMap.get(DcMotor.class, "motorFR");
         leftDriveRear  = hardwareMap.get(DcMotor.class, "motorBL");
         rightDriveRear = hardwareMap.get(DcMotor.class,"motorBR");
+        hangMotor = hardwareMap.get(DcMotor.class, "motorHang");
         armRaise = hardwareMap.get(DcMotor.class, "armRaise");
         armExtend = hardwareMap.get(DcMotor.class, "armExtend");
         markerDrop = hardwareMap.get(Servo.class, "markerDrop");
@@ -44,6 +46,7 @@ public class MMRobot2
         rightDriveFront.setDirection(DcMotor.Direction.FORWARD);
         leftDriveRear.setDirection(DcMotor.Direction.REVERSE);
         rightDriveRear.setDirection(DcMotor.Direction.FORWARD);
+        hangMotor.setDirection(DcMotor.Direction.FORWARD);
         armExtend.setDirection(DcMotor.Direction.FORWARD);
         collectServo.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -52,6 +55,7 @@ public class MMRobot2
         rightDriveFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftDriveRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightDriveRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hangMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armRaise.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
@@ -66,6 +70,7 @@ public class MMRobot2
         rightDriveFront = hardwareMap.get(DcMotor.class, "motorFR");
         leftDriveRear  = hardwareMap.get(DcMotor.class, "motorBL");
         rightDriveRear = hardwareMap.get(DcMotor.class,"motorBR");
+        hangMotor = hardwareMap.get(DcMotor.class, "motorHang");
         armRaise = hardwareMap.get(DcMotor.class, "armRaise");
         armExtend = hardwareMap.get(DcMotor.class, "armExtend");
         markerDrop = hardwareMap.get(Servo.class, "markerDrop");
@@ -76,6 +81,7 @@ public class MMRobot2
         rightDriveFront.setDirection(DcMotor.Direction.FORWARD);
         leftDriveRear.setDirection(DcMotor.Direction.REVERSE);
         rightDriveRear.setDirection(DcMotor.Direction.FORWARD);
+        hangMotor.setDirection(DcMotor.Direction.FORWARD);
         armExtend.setDirection(DcMotor.Direction.FORWARD);
         collectServo.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -84,8 +90,17 @@ public class MMRobot2
         rightDriveFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftDriveRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightDriveRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hangMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armRaise.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armExtend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    public void lowerRobot(){
+        hangMotor.setPower(-1.0);
+    }
+
+    public void raiseRobot(){
+        hangMotor.setPower(1);
     }
 
     public void RaiseArm(double power)
@@ -164,6 +179,14 @@ public class MMRobot2
 
     public void setRightDriveRear(DcMotor rightDriveRear) {
         this.rightDriveRear = rightDriveRear;
+    }
+
+    public DcMotor getHangMotor() {
+        return hangMotor;
+    }
+
+    public void setHangMotor(DcMotor hangMotor) {
+        this.hangMotor = hangMotor;
     }
 
 }
