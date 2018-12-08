@@ -76,7 +76,7 @@ public class MMAutoDepotMain extends LinearOpMode {
         robot.getHangMotor().setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.getHangMotor().setPower(1.0);
 
-        while (opModeIsActive() && (runtime.seconds() < 12.0)) {
+        while (opModeIsActive() && (runtime.seconds() < 16.0)) {
 
         }
         robot.getHangMotor().setPower(0);
