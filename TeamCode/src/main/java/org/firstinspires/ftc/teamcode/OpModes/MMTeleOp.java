@@ -56,8 +56,8 @@ public class MMTeleOp extends OpMode
         RaiseArm();
         Collect();
         UnLock();
-        Hang();
-        Drop();
+        //Hang();
+        //Drop();
 
 
         // Show the elapsed game time and wheel power.
@@ -70,14 +70,6 @@ public class MMTeleOp extends OpMode
         double power = Range.clip(gamepad2.left_stick_y, -1, 0.5) ;
         _robot.RaiseArm(power);
         telemetry.addData("Arm Rotate", "Up");
-    }
-
-    void Hang(){
-        if(gamepad2.left_bumper) _robot.raiseRobot();
-    }
-
-    void Drop(){
-        if(gamepad2.right_bumper) _robot.lowerRobot();
     }
 
     void RetractArm()

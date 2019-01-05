@@ -61,7 +61,7 @@ public class MMAutoCraterReverse extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //robot.useCollector(MotorDirection.Forward);
-        encoderDrive(0.3, 72, 72, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(0.3, 12, 12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
         //encoderDrive(DRIVE_SPEED,  0,  0, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
 
         telemetry.addData("Path", "Complete");
@@ -88,10 +88,10 @@ public class MMAutoCraterReverse extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftFrontTarget = robot.getLeftDriveFront().getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newLeftRearTarget = robot.getLeftDriveRear().getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightFrontTarget = robot.getRightDriveFront().getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            newRightRearTarget = robot.getRightDriveRear().getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newLeftFrontTarget = robot.getLeftDriveFront().getCurrentPosition() + (int)(-leftInches * COUNTS_PER_INCH);
+            newLeftRearTarget = robot.getLeftDriveRear().getCurrentPosition() + (int)(-leftInches * COUNTS_PER_INCH);
+            newRightFrontTarget = robot.getRightDriveFront().getCurrentPosition() + (int)(-rightInches * COUNTS_PER_INCH);
+            newRightRearTarget = robot.getRightDriveRear().getCurrentPosition() + (int)(-rightInches * COUNTS_PER_INCH);
 
             robot.getLeftDriveFront().setTargetPosition(newLeftFrontTarget);
             robot.getLeftDriveRear().setTargetPosition(newLeftRearTarget);
@@ -106,10 +106,10 @@ public class MMAutoCraterReverse extends LinearOpMode {
 
             // reset the timeout time and start motion.
             runtime.reset();
-            robot.getLeftDriveFront().setPower(Math.abs(speed));
-            robot.getLeftDriveRear().setPower(Math.abs(speed));
-            robot.getRightDriveFront().setPower(Math.abs(speed));
-            robot.getRightDriveRear().setPower(Math.abs(speed));
+            robot.getLeftDriveFront().setPower(-(speed));
+            robot.getLeftDriveRear().setPower(-(speed));
+            robot.getRightDriveFront().setPower(-(speed));
+            robot.getRightDriveRear().setPower(-(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
